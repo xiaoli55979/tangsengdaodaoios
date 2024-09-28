@@ -1,0 +1,15 @@
+//
+//  LiMaoBase-Prefix.pch
+//  LiMaoBase
+//
+//  Created by 阿浩 on 6/9/2024.
+//  Copyright © 2024 tangtaoit. All rights reserved.
+//
+
+#ifndef LiMaoBase_Prefix_pch
+#define LiMaoBase_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* LiMaoBase_Prefix_pch */
