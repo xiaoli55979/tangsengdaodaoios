@@ -155,35 +155,33 @@
 
     
     /// 只有管理员才能设置
-    if ([self isManagerOrCreatorForMe]) {
-        if(self.channel.channelType != WK_GROUP) {
-            return;;
+    [[WKApp shared] setMethod:@"channelsetting.groupavatar" handler:^id _Nullable(id  _Nonnull param) {
+        WKChannel *channel = param[@"channel"];
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
         }
-        /// 群头像WKMeAvatarModel WKSectionHeight
-        [[WKApp shared] setMethod:@"channelsetting.groupavatar" handler:^id _Nullable(id  _Nonnull param) {
-            WKChannel *channel = param[@"channel"];
-            if(channel.channelType != WK_GROUP) {
-                return nil;
-            }
-            return @{
-                @"height":@(0.0f),
-                @"items": @[
-                    @{
-                        @"class":WKGroupAvatarModel.class,
-                        @"label":LLang(@"群头像"),
-                        @"showBottomLine":@(YES),
-                        @"channel":weakSelf.channel,
-                        @"onClick":^{
-                            WKGroupAvatarVC *vc = [WKGroupAvatarVC new];
-                            vc.channel = weakSelf.channel;
-                            [[WKNavigationManager shared] pushViewController:vc animated:YES];
-                            
-                        }
-                    },
-                ],
-            };
-        } category:WKPOINT_CATEGORY_CHANNELSETTING sort:90100];
-    }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        return @{
+            @"height":@(0.0f),
+            @"items": @[
+                @{
+                    @"class":WKGroupAvatarModel.class,
+                    @"label":LLang(@"群头像"),
+                    @"showBottomLine":@(YES),
+                    @"channel":weakSelf.channel,
+                    @"onClick":^{
+                        WKGroupAvatarVC *vc = [WKGroupAvatarVC new];
+                        vc.channel = weakSelf.channel;
+                        [[WKNavigationManager shared] pushViewController:vc animated:YES];
+                        
+                    }
+                },
+            ],
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:90100];
     
     [[WKApp shared] setMethod:@"channelsetting.groupname" handler:^id _Nullable(id  _Nonnull param) {
         WKChannel *channel = param[@"channel"];
@@ -448,180 +446,183 @@
 - (void)groupSettingList {
     
     __weak typeof(self) weakSelf = self;
-    /// 只有管理员和创建者可以设置
-    if ([self isManagerOrCreatorForMe]) {
-        if(self.channel.channelType != WK_GROUP) {
-            return;;
+    
+    /// 群设置
+    [[WKApp shared] setMethod:@"channelsetting.groupsetting" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
         }
-        /// 群设置
-        [[WKApp shared] setMethod:@"channelsetting.groupsetting" handler:^id _Nullable(id  _Nonnull param) {
-            WKChannel *channel = param[@"channel"];
-            CGFloat sectionHeight = 0.0f;
-            if(channel.channelType == WK_GROUP) {
-                sectionHeight = WKSectionHeight.floatValue;
-            }
-            return  @{
-                @"height":@(sectionHeight),
-                @"items":@[
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"是否显示昵称"),
-                        @"on":@(self.channelInfo?self.channelInfo.showNick:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] group:self.channel.channelId nick:on];
-                            [[WKNavigationManager shared] popToRootViewControllerAnimated:YES];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"群成员禁言"),
-                        @"on":@(self.channelInfo?self.channelInfo.forbidden:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] group:self.channel.channelId forbidden:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"群聊邀请确认"),
-                        @"on":@(self.channelInfo?self.channelInfo.invite:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] group:self.channel.channelId invite:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"是否启用聊天密码"),
-                        @"on":@(self.channelInfo?[self.channelInfo.extra[@"chat_pwd_on"] boolValue]:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"截屏通知"),
-                        @"on":@(self.channelInfo?[self.channelInfo.extra[@"screenshot"] boolValue]:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] channel:self.channel screenshot:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"撤回消息提醒"),
-                        @"on":@(self.channelInfo?[self.channelInfo.extra[@"revoke_remind"] boolValue]:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] channel:self.channel revokeRemind:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"加群提醒"),
-                        @"on":@(self.channelInfo?[self.channelInfo.extra[@"join_group_remind"] boolValue]:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] channel:self.channel joinGroupRemind:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"禁止添加好友"),
-                        @"on":@(self.channelInfo?[self.channelInfo.extra[@"forbidden_add_friend"] boolValue]:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] channel:self.channel forbiddenAddFriend:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"消息回执"),
-                        @"on":@(self.channelInfo?self.channelInfo.receipt:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] channel:self.channel receipt:on];
-                        }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"是否开启阅后即焚模式"),
-                        @"on":@(self.channelInfo?self.channelInfo.flame:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            if (on) {
-                                [InputDialog showWithTitle:LLang(@"阅后即焚")
-                                                   message:LLang(@"请输入阅后即焚时长(S)")
-                                                 inputType:InputTypeNumber
-                                           completionBlock:^(NSString *inputText) {
-                                    [[WKChannelSettingManager shared] channel:self.channel flameSecond:[inputText integerValue]];
-                                           }];
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(sectionHeight),
+            @"items":@[
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"是否显示昵称"),
+                    @"on":@(self.channelInfo?self.channelInfo.showNick:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] group:self.channel.channelId nick:on];
+                        [[WKNavigationManager shared] popToRootViewControllerAnimated:YES];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"群成员禁言"),
+                    @"on":@(self.channelInfo?self.channelInfo.forbidden:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] group:self.channel.channelId forbidden:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"群聊邀请确认"),
+                    @"on":@(self.channelInfo?self.channelInfo.invite:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] group:self.channel.channelId invite:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"是否启用聊天密码"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"chat_pwd_on"] boolValue]:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"截屏通知"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"screenshot"] boolValue]:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel screenshot:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"撤回消息提醒"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"revoke_remind"] boolValue]:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel revokeRemind:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"加群提醒"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"join_group_remind"] boolValue]:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel joinGroupRemind:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"禁止添加好友"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"forbidden_add_friend"] boolValue]:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel forbiddenAddFriend:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"消息回执"),
+                    @"on":@(self.channelInfo?self.channelInfo.receipt:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel receipt:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"是否开启阅后即焚模式"),
+                    @"on":@(self.channelInfo?self.channelInfo.flame:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        if (on) {
+                            [InputDialog showWithTitle:LLang(@"阅后即焚")
+                                               message:LLang(@"请输入阅后即焚时长(S)")
+                                             inputType:InputTypeNumber
+                                       completionBlock:^(NSString *inputText) {
+                                [[WKChannelSettingManager shared] channel:self.channel flameSecond:[inputText integerValue]];
+                                       }];
 
-                            }
-                            [[WKChannelSettingManager shared] channel:self.channel flame:on];
                         }
-                    },
-                    @{
-                        @"class":WKSwitchItemModel.class,
-                        @"label":LLang(@"是否允许查看历史消息"),
-                        @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_view_history_msg"] boolValue]:false),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onSwitch":^(BOOL on){
-                            [[WKChannelSettingManager shared] channel:self.channel allowViewHistoryMsg:on];
-                        }
-                    },
-                    @{
-                        @"class":WKLabelItemModel.class,
-                        @"label":LLang(@"添加群管理员"),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onClick":^{
-                           if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(settingMember:)]) {
-                               [weakSelf.delegate settingMember:weakSelf];
-                           }
-                        }
-                    },
-                    @{
-                        @"class":WKLabelItemModel.class,
-                        @"label":LLang(@"删除群管理员"),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onClick":^{
-                           if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(removeMember:)]) {
-                               [weakSelf.delegate removeMember:weakSelf];
-                           }
-                        }
-                    },
-                    @{
-                        @"class":WKLabelItemModel.class,
-                        @"label":LLang(@"转让群主身份"),
-                        @"showBottomLine":@(NO),
-                        @"bottomLeftSpace":@(0.0f),
-                        @"onClick":^{
-                           if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(changeGroupMember:)]) {
-                               [weakSelf.delegate changeGroupMember:weakSelf];
-                           }
-                        }
-                    },
-                   ]
+                        [[WKChannelSettingManager shared] channel:self.channel flame:on];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"是否允许查看历史消息"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_view_history_msg"] boolValue]:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel allowViewHistoryMsg:on];
+                    }
+                },
+                @{
+                    @"class":WKLabelItemModel.class,
+                    @"label":LLang(@"添加群管理员"),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onClick":^{
+                       if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(settingMember:)]) {
+                           [weakSelf.delegate settingMember:weakSelf];
+                       }
+                    }
+                },
+                @{
+                    @"class":WKLabelItemModel.class,
+                    @"label":LLang(@"删除群管理员"),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onClick":^{
+                       if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(removeMember:)]) {
+                           [weakSelf.delegate removeMember:weakSelf];
+                       }
+                    }
+                },
+                @{
+                    @"class":WKLabelItemModel.class,
+                    @"label":LLang(@"转让群主身份"),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onClick":^{
+                       if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(changeGroupMember:)]) {
+                           [weakSelf.delegate changeGroupMember:weakSelf];
+                       }
+                    }
+                },
+               ]
 
-            };
-        } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89355];
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89355];
 
-    }
 }
 
 

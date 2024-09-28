@@ -18,6 +18,36 @@
             endingLineNumber = "144"
             landmarkName = "-okPressed"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "115C66BB-DBB0-446A-AC64-E8342E129989 - 412f7662dd04fc41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[WKRegisterNextVC okPressed]"
+                  moduleName = "WuKongLogin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ahao/Documents/Workspace/iOS/tangsengdaodaoios/Modules/WuKongLogin/WuKongLogin/Classes/Login/Src/WKRegisterNextVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144">
+               </Location>
+               <Location
+                  uuid = "115C66BB-DBB0-446A-AC64-E8342E129989 - 7e032b517cf3e0cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__29-[WKRegisterNextVC okPressed]_block_invoke"
+                  moduleName = "WuKongLogin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ahao/Documents/Workspace/iOS/tangsengdaodaoios/Modules/WuKongLogin/WuKongLogin/Classes/Login/Src/WKRegisterNextVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
