@@ -88,6 +88,7 @@ static WKProhibitwordsService *_instance = nil;
         }
 }
 
+///// 敏感词处理
 - (void)addProhibitword:(NSString *)keyword{
     keyword = keyword.lowercaseString;
     keyword = [keyword stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -103,45 +104,59 @@ static WKProhibitwordsService *_instance = nil;
     //敏感词最后一个字符标识
     [node setValue:@0 forKey:self.delimit];
 }
-                  
+
 - (NSString *)filter:(NSString *)message {
     return [self filter:message replaceKey:nil];
 }
-                  
-- (NSString *)filter:(NSString *)message replaceKey:(NSString *)replaceKey{
+      
+- (NSString *)filter:(NSString *)message replaceKey:(NSString *)replaceKey {
     replaceKey = replaceKey == nil ? @"*" : replaceKey;
-//   NSString  *message = msg.lowercaseString;
+
     NSMutableArray *retArray = [[NSMutableArray alloc] init];
     NSInteger start = 0;
+
     while (start < message.length) {
         NSMutableDictionary *level = self.keywordChains.mutableCopy;
         NSInteger step_ins = 0;
+        BOOL matched = NO;
+
         NSString *message_chars = [message substringWithRange:NSMakeRange(start, message.length - start)];
-        for(int i = 0; i < message_chars.length; i++){
+        for (int i = 0; i < message_chars.length; i++) {
             NSString *chars_i = [message_chars substringWithRange:NSMakeRange(i, 1)];
-            if([level.allKeys containsObject:chars_i]){
+            if ([level.allKeys containsObject:chars_i]) {
                 step_ins += 1;
                 NSDictionary *level_char_dict = level[chars_i];
-                if(![level_char_dict.allKeys containsObject:self.delimit]){
-                    level = level_char_dict.mutableCopy;
-                }else{
+
+                if ([level_char_dict.allKeys containsObject:self.delimit]) {
+                    // 敏感词完全匹配
                     NSMutableString *ret_str = [[NSMutableString alloc] init];
-                    for(int i = 0; i < step_ins; i++){
+                    for (int j = 0; j < step_ins; j++) {
                         [ret_str appendString:replaceKey];
                     }
                     [retArray addObject:ret_str];
-                    start += (step_ins - 1);
+                    start += step_ins - 1;
+                    matched = YES;
                     break;
+                } else {
+                    level = level_char_dict.mutableCopy;
                 }
-            }else{
-                [retArray addObject:[NSString stringWithFormat:@"%C",[message characterAtIndex:start]]];
+            } else {
+                // 当前字符没有匹配到敏感词，直接保留当前字符
                 break;
             }
         }
-        start ++;
+
+        if (!matched) {
+            // 如果没有匹配到敏感词，保留原始字符
+            [retArray addObject:[NSString stringWithFormat:@"%C", [message characterAtIndex:start]]];
+        }
+
+        start++;
     }
+
     return [retArray componentsJoinedByString:@""];
 }
+
 
 - (NSMutableDictionary *)keywordChains{
     if(_keywordChains == nil){

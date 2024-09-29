@@ -47,7 +47,7 @@
 -(void) syncIfNeed {
     NSDictionary *resultDict = [self getSecurityTipData];
     if(resultDict) {
-        self.sensitiveWords =   resultDict[@"list"];
+        self.sensitiveWords = resultDict[@"list"];
         self.tip = resultDict[@"tips"];
     }else {
         [self sync];

@@ -186,6 +186,7 @@
 
 -(void) addMessageOnly:(WKMessageModel *)message {
     
+/// 敏感词
     [self handleProhibitwords:message]; // 处理违禁词
     
     NSString *date = [self formatMessageDate:message];
