@@ -35,6 +35,15 @@
                             [WKApp shared].config.langue = @"en";
                             [weakSelf reloadData];
                         }
+                    },
+                    @{
+                        @"class":WKLabelItemSelectModel.class,
+                        @"label":@"Tiếng Việt",
+                        @"selected":@([langue isEqualToString:@"vi"]),
+                        @"onClick":^{
+                            [WKApp shared].config.langue = @"vi";
+                            [weakSelf reloadData];
+                        }
                     }
             ],
         }

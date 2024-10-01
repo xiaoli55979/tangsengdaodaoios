@@ -1,0 +1,30 @@
+"联系人"="Người liên hệ";
+"新的朋友"="Bạn mới";
+"保存的群聊"="Trò chuyện nhóm đã lưu";
+"确认"="Xác nhận";
+"已确认"="Đã xác nhận";
+"取消"="Hủy";
+// WKContactsAddMyShort
+"我的%@号：%@"="Tài khoản %@ của tôi: %@";
+// WKContactsAddVC
+"添加朋友"="Thêm bạn";
+"搜索"="Tìm kiếm";
+"刚刚"="Vừa xong";
+"%0.0f分钟"="%0.0f phút";
+// WKContactsInfoVC
+"用户详情"="Chi tiết người dùng";
+"添加好友"="Thêm bạn";
+"你需要发送验证码申请，等对方通过"="Bạn cần gửi mã xác minh và đối phương chấp nhận";
+"我是%@"="Tôi là %@";
+// WKContactsSearchVC
+"用户不存在！"="Người dùng không tồn tại!";
+// WKContactsVM
+"扫一扫"="Quét mã QR";
+"扫描二维码名片"="Quét mã QR danh thiếp";
+// WKMyGroupListVC
+"保存的群聊"="Trò chuyện nhóm đã lưu";
+// WKContactsSync
+"同步联系人"="Đồng bộ người liên hệ";
+"手机联系人"="Danh bạ điện thoại";
+"添加通讯录中的朋友"="Thêm bạn từ danh bạ";
+"新建群聊"="Tạo nhóm";

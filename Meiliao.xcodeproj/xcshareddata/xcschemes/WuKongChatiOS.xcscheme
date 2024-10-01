@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "71D6960223926E3500D092BA"
                BuildableName = "TangSengDaoDao.app"
-               BlueprintName = "TangSengDaoDaoiOS"
-               ReferencedContainer = "container:TangSengDaoDaoiOS.xcodeproj">
+               BlueprintName = "Meiliao"
+               ReferencedContainer = "container:Meiliao.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,8 +46,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "71D6960223926E3500D092BA"
             BuildableName = "TangSengDaoDao.app"
-            BlueprintName = "TangSengDaoDaoiOS"
-            ReferencedContainer = "container:TangSengDaoDaoiOS.xcodeproj">
+            BlueprintName = "Meiliao"
+            ReferencedContainer = "container:Meiliao.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "71D6960223926E3500D092BA"
             BuildableName = "TangSengDaoDao.app"
-            BlueprintName = "TangSengDaoDaoiOS"
-            ReferencedContainer = "container:TangSengDaoDaoiOS.xcodeproj">
+            BlueprintName = "Meiliao"
+            ReferencedContainer = "container:Meiliao.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

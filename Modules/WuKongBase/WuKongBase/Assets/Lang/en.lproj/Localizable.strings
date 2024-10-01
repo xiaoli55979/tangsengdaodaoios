@@ -193,6 +193,8 @@
 "消息回执"="Receipt";
 "开启后，发送的聊天信息会提示已读未读情况"="After turned on, the chat message sent will prompt read and unread status";
 "群设置"="Group Setting";
+"设置锁屏密码" = "Set Lock Screen Password";
+"设置聊天密码" = "Set Chat Password";
 
 // WKConversationVC
 
@@ -407,16 +409,17 @@
 "是否显示昵称"="Group Name";
 "群成员禁言"="Group member mute";
 "群聊邀请确认"="Group chat invite confirmation";
-"是否启用聊天密码"="Whether to enable chat password";
 "截屏通知"="Screenshot notification";
 "撤回消息提醒"="Recall message reminder";
 "加群提醒"="Join group reminder";
 "禁止添加好友"="Prohibit adding friends";
 "消息回执"="Message receipt";
-"是否开启焚烧模式"="Whether to enable burn mode";
 "是否允许查看历史消息"="Whether to allow viewing of historical messages";
 "添加群管理员"="Add group admin";
-"转让群组身份"="Transfer group ownership";
+"阅后即焚" = "Burn After Reading";
+"请输入阅后即焚时长(%d)" = "Please enter the burn after reading duration (%d)";
+"删除群管理员" = "Remove Group Admin";
+"转让群主身份" = "Transfer Group Ownership";
 
 
 // WKMeInfoVM
@@ -499,6 +502,7 @@
 "锁屏密码"="Lock Screen Password";
 "断网屏保"="Disconnected Screen Protector";
 "设置解锁密码"="Set Unlock Password";
+"请输入锁屏密码" = "Please enter the lock screen password";
 
 // WKScanVC
 

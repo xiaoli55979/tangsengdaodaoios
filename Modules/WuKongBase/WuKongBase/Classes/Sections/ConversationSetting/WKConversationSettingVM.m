@@ -318,6 +318,69 @@
     } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89400];
     
     
+    /// 聊天密码 - 基于用户
+    [[WKApp shared] setMethod:@"channelsetting.chatpwd" handler:^id _Nullable(id  _Nonnull param) {
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"聊天密码"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"chat_pwd_on"] boolValue]:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
+                    }
+                },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89361];
+    
+    /// 消息回执
+    [[WKApp shared] setMethod:@"channelsetting.msgback" handler:^id _Nullable(id  _Nonnull param) {
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"消息回执"),
+                    @"on":@(self.channelInfo?self.channelInfo.receipt:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] channel:self.channel receipt:on];
+                    }
+                },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89360];
+
+    
+    /// 是否显示昵称
+    [[WKApp shared] setMethod:@"channelsetting.msgback" handler:^id _Nullable(id  _Nonnull param) {
+        WKChannel *channel = param[@"channel"];
+        if(channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"是否显示昵称"),
+                    @"on":@(self.channelInfo?self.channelInfo.showNick:false),
+                    @"showBottomLine":@(NO),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] group:self.channel.channelId nick:on];
+                        [[WKNavigationManager shared] popToRootViewControllerAnimated:YES];
+                    }
+                },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89359];
+    
     [[WKApp shared] setMethod:@"channelsetting.groupsave" handler:^id _Nullable(id  _Nonnull param) {
         WKChannel *channel = param[@"channel"];
         if(channel.channelType != WK_GROUP) {
@@ -446,6 +509,7 @@
 - (void)groupSettingList {
     
     __weak typeof(self) weakSelf = self;
+
     
     /// 群设置
     [[WKApp shared] setMethod:@"channelsetting.groupsetting" handler:^id _Nullable(id  _Nonnull param) {
@@ -465,17 +529,7 @@
         return  @{
             @"height":@(sectionHeight),
             @"items":@[
-                @{
-                    @"class":WKSwitchItemModel.class,
-                    @"label":LLang(@"是否显示昵称"),
-                    @"on":@(self.channelInfo?self.channelInfo.showNick:false),
-                    @"showBottomLine":@(NO),
-                    @"bottomLeftSpace":@(0.0f),
-                    @"onSwitch":^(BOOL on){
-                        [[WKChannelSettingManager shared] group:self.channel.channelId nick:on];
-                        [[WKNavigationManager shared] popToRootViewControllerAnimated:YES];
-                    }
-                },
+
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"群成员禁言"),
@@ -496,16 +550,7 @@
                         [[WKChannelSettingManager shared] group:self.channel.channelId invite:on];
                     }
                 },
-                @{
-                    @"class":WKSwitchItemModel.class,
-                    @"label":LLang(@"是否启用聊天密码"),
-                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"chat_pwd_on"] boolValue]:false),
-                    @"showBottomLine":@(NO),
-                    @"bottomLeftSpace":@(0.0f),
-                    @"onSwitch":^(BOOL on){
-                        [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
-                    }
-                },
+
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"截屏通知"),
@@ -546,19 +591,10 @@
                         [[WKChannelSettingManager shared] channel:self.channel forbiddenAddFriend:on];
                     }
                 },
+
                 @{
                     @"class":WKSwitchItemModel.class,
-                    @"label":LLang(@"消息回执"),
-                    @"on":@(self.channelInfo?self.channelInfo.receipt:false),
-                    @"showBottomLine":@(NO),
-                    @"bottomLeftSpace":@(0.0f),
-                    @"onSwitch":^(BOOL on){
-                        [[WKChannelSettingManager shared] channel:self.channel receipt:on];
-                    }
-                },
-                @{
-                    @"class":WKSwitchItemModel.class,
-                    @"label":LLang(@"是否开启阅后即焚模式"),
+                    @"label":LLang(@"阅后即焚"),
                     @"on":@(self.channelInfo?self.channelInfo.flame:false),
                     @"showBottomLine":@(NO),
                     @"bottomLeftSpace":@(0.0f),

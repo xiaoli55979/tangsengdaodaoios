@@ -1,0 +1,595 @@
+
+"设置锁屏密码" = "Cài đặt mật khẩu màn hình khóa";
+"设置聊天密码" = "Cài đặt mật khẩu trò chuyện";
+"删除群管理员" = "Xóa quản trị viên nhóm";
+"请输入锁屏密码" = "Vui lòng nhập mật khẩu khóa màn hình";
+
+"通用"="Chung";
+"多语言"="Ngôn ngữ";
+"确认"="Xác nhận";
+
+"新消息通知"="Thông báo mới";
+"安全与隐私"="An toàn và bảo mật";
+"收藏"="Lưu trữ";
+
+"系统通知"="Thông báo hệ thống";
+"文件传输助手"="Truyền file";
+
+"注销账号"="Xóa tài khoản";
+"群主"="Chủ sở hữu nhóm";
+"管理员"="Quản trị viên";
+"复制成功"="Sao chép thành công";
+"个人收藏"="Kho lưu trữ";
+"更多APP"="Xem thêm app";
+"消息已发出，但被对方拒收了。"="Tin nhắn đã được gửi, nhưng bị người nhận từ chối.";
+"添加单个表情"="Thêm biểu tượng cảm xúc";
+"整理"="Sắp xếp";
+"移到最前"="Đưa lên đầu";
+"删除的表情无法恢复"="Không thể khôi phục icon đã xóa";
+"群成员"="Thành viên nhóm";
+"聊天记录备份"="Sao lưu tin nhắn";
+"聊天记录恢复"="Khôi phục tin nhắn";
+"用户协议"="Thỏa thuận người dùng";
+"隐私政策"="Chính sách bảo mật";
+
+
+
+
+"为了迁移您的本地聊天记录，需要把您的聊天记录上传到服务器以支持新设备下载；"="Để di chuyển lịch sử trò chuyện, bạn cần upload lịch sử trò chuyện lên máy chủ để hỗ trợ tải cho thiết bị mới;";
+"聊天记录会以不记名加密的方式存储在服务器；"="Lịch sử trò chuyện sẽ được lưu trữ trên máy chủ dưới dạng mã hóa ẩn danh;";
+"为了防止信息泄露，服务器将会于每天的00:00删除当天所有用户上传的聊天记录；"="Vì lý do bảo mật, hệ thống sẽ tự động xóa toàn bộ lịch sử chat vào lúc 00:00 hằng ngày.;";
+"每点击一次备份，将会覆盖前一次备份的聊天记录，请谨慎操作；"="Việc sao lưu sẽ ghi đè lên dữ liệu lịch sử chat cũ. Xin hãy cân nhắc kỹ trước khi thực hiện;";
+"建议用户确认聊天记录迁移完毕后再删除原设备上的聊天记录；"=" Trước khi xóa lịch sử trò chuyện trên thiết bị cũ, vui lòng xác nhận lịch sử trò chuyện đã được sao lưu và di chuyển hoàn tất;";
+"由此功能造成任何的不良后果由用户自行承担；"="Người dùng sẽ chịu trách nhiệm hoàn toàn về mọi hậu quả có thể xảy ra do sử dụng chức năng này;";
+"功能模块"="Mô-đun chức năng";
+
+// 常用
+
+"好的"="Ok";
+"提示"="Gợi ý";
+"确定"="Xác nhận";
+"发送"="Gửi đi";
+"搜索"="Tìm kiếm";
+"完成"="Xong";
+"清空聊天记录"="Xóa lịch sử trò chuyện";
+"投诉"="Báo cáo";
+"发送成功"="Gửi thành công";
+"删除"="Xóa";
+"取消"="Hủy";
+"上午"="Buổi sáng";
+"下午"="Buổi chiều";
+"今天"="Hôm nay";
+"昨天"="Hôm qua";
+"表情"="Emoji";
+"语音"="Ghi âm";
+"更多"="Thêm";
+"编辑"="Chỉnh sửa";
+"保存到相册"="Lưu về máy";
+"识别图中二维码"="Nhận diện mã QR trong hình";
+"在浏览器中打开"="Mở trong trình duyệt";
+"----- 仅群主和管理员可编辑 -----"="- Chỉ chủ sở hữu nhóm và quản trị viên mới có thể chỉnh sửa -";
+"%ld个成员"="%ld Thành viên";
+
+// WKApp
+
+"发起群聊"="Tạo nhóm";
+"添加朋友"="Thêm thành viên";
+"扫一扫"="Quét mã QR";
+"名片"="Danh thiếp";
+"名片发送中"="Đang gửi danh thiếp";
+"图片"="Hình ảnh";
+"多选"="Chọn nhiều";
+"回复"="Trả lời";
+"转发"="Chuyển tiếp";
+"选择一个聊天"="Chọn một cuộc trò chuyện";
+"撤回"="Thu hồi";
+"复制"="Sao chép";
+"搞笑"="Vui nhộn";
+"卖萌"="Dễ thương";
+"热图"="Hot";
+"联系人选择"="Chọn người liên hệ";
+"发送%@的名片到当前聊天"="Gửi danh thiếp của %@ đến cuộc trò chuyện hiện tại";
+
+"添加表情"="Thêm biểu tượng cảm xúc";
+
+
+// WKBaseTableVC
+
+"暂无数据"="Chưa có dữ liệu";
+"数据加载中"="Đang tải";
+
+// WKLocalNotificationManager
+
+"聊天"="Trò chuyện";
+"[图片]"="[Hình ảnh]";
+"[GIF]"="[GIF]";
+"[语音]"="[ m thanh]";
+
+// WKSystemMessageHandler
+
+
+"账号已在其他设备上登录！"="Tài khoản đã được đăng nhập trên thiết bị khác!";
+"[%d条进群申请]"="[%d yêu cầu tham gia nhóm]";
+"[1条进群申请]"="[1 đề nghị tham gia nhóm]";
+
+// WKMediaPickerController
+
+"相册权限受限"="Giới hạn quyền truy cập album";
+"检测不到相机设备"="Không phát hiện camera";
+
+// ZCTradeInputView
+
+"请输入密码"="Nhập mật khẩu";
+"忘记密码"="Quên mật khẩu";
+
+// WKUserInfoVC
+
+"昵称"="Biệt danh";
+"群昵称"="Tên nhóm";
+"%@号：%@"="Tài khoản %@ ： %@";
+"用户备注昵称"="Tên gợi nhớ";
+"发消息"="Gửi tin nhắn";
+"视频通话"="Cuộc gọi video";
+"添加好友"="Thêm bạn";
+"已添加至黑名单，你将不再收到对方的消息"="Đã thêm vào danh sách chặn, bạn sẽ không còn nhận được tin nhắn từ người này";
+"你需要发送验证码申请，等对方通过"="Bạn cần gửi mã xác minh và đối phương chấp nhận";
+"发送成功！"="Gửi thành công!";
+"我是%@"="Tôi là %@";
+"修改备注"="Chỉnh sửa ghi chú";
+"将联系人“%@”删除，同时删除与该联系人的聊天记录"="Xóa bạn với “%@” và toàn bộ cuộc trò chuyện này";
+"删除联系人"="Xóa liên hệ";
+"加入黑名单，你将不再收到对方的消息。"="Đã chặn, bạn sẽ không nhận được tin nhắn từ người này.";
+"设置备注"="Cài đặt ghi chú";
+"解除好友关系"="Hủy kết bạn";
+"拉出黑名单"="Bỏ chặn";
+"拉入黑名单"="Chặn";
+"来源"="Nguồn";
+"我通过了你的朋友验证请求，现在我们可以开始聊天了"="Tôi đã thông qua lời mời kết bạn của bạn và bây giờ chúng ta có thể bắt đầu trò chuyện";
+"进群方式"="Cách tham gia nhóm";
+"群内禁言"="Quản trị viên đã khóa chat nhóm";
+
+// WKConversationGroupSettingVC
+
+"聊天信息(%lu)"="Thông tin trò chuyện(%lu)";
+"%@在群黑名单中"="%@ nằm trong danh sách đen";
+"群主或管理员已启用\"群聊邀请确认\"，邀请朋友进群可向群主或群管理员描述原因。"="Nhóm đã bật tính năng \"xác nhận lời mời thành viên mới\" khi mời bạn bè, vui lòng cung cấp lý do cho quản trị viên.";
+"说明邀请理由"="Giải thích lý do mời";
+"已发送"="Đã gửi";
+"删除群成员"="Xóa thành viên";
+"只有群主或管理员才能修改"="Chỉ chủ sở hữu nhóm và quản trị viên mới có thể chỉnh sửa";
+"修改群名称"="Đổi tên nhóm";
+"群名称"="Tên nhóm";
+"修改群公告"="Chỉnh sửa thông báo nhóm";
+"群公告"="Thông báo nhóm";
+"退出后不会通知群聊中其他成员，且不会再接收此群聊消息"="Rời nhóm trong im lặng, bạn sẽ không còn nhận được tin nhắn từ nhóm chat này";
+"我在本群的昵称"="Biệt danh của tôi trong nhóm này";
+"在这里可以设置你在这个群里的昵称。这个昵称只会在此群内显示。"="Tại đây bạn có thể đặt biệt danh của mình. Biệt danh sẽ chỉ được hiển thị trong nhóm này.";
+
+"查看更多群成员"="Xem thành viên";
+
+// WKConversationNotifySettingVC
+
+"消息通知设置" = "Cài đặt thông báo tin nhắn";
+
+// WKConversationNotifySettingVM
+"在对话中的截屏，各方均会收到通知"= "Tất cả thành viên sẽ nhận được thông báo khi bạn chụp màn hình";
+"截屏通知"="Thông báo chụp màn hình";
+"在对话中的消息撤回，各方均会收到通知"="Tất cả thành viên sẽ nhận được thông báo khi bạn thu hồi tin nhắn";
+"撤回通知"="Thông báo thu hồi";
+"关闭后，成员进群将不会响铃/震动"="Sau khi tắt, sẽ không có âm báo/rung khi có thành viên mới tham gia nhóm";
+"成员进群提醒"="Thông báo thành viên mới tham gia";
+
+// WKConversationPersonSettingVC
+
+"聊天详情"="Chi tiết trò chuyện";
+
+// WKConversationSettingVM
+
+"群聊名称"="Tên nhóm";
+"群二维码"="Mã QR nhóm";
+"未设置"="Chưa cài đặt";
+"群管理"="Quản lý nhóm";
+"消息免打扰"="Tắt thông báo";
+"置顶聊天"="Ghim tin nhắn";
+"保存到通讯录"="Lưu liên hệ";
+"聊天密码"="Mật khẩu trò chuyện";
+"显示群成员昵称"="Hiển thị tên thành viên trong nhóm";
+"消息通知设置"="Cài đặt thông báo tin nhắn";
+"删除并退出"="Rời nhóm và xóa trò chuyện này";
+"消息回执"="Đã nhận";
+"开启后，发送的聊天信息会提示已读未读情况"="Sau khi bật, tin nhắn gửi đi sẽ hiển thị trạng thái đã xem hoặc chưa xem";
+"群设置"="Cài đặt nhóm";
+
+// WKConversationVC
+
+"换行"="Xuống dòng";
+"%ld条新消息"="%ld tin nhắn mới";
+"发送给 %@"="Gửi đến %@";
+"在线"="Đang hoạt động";
+"刚刚在线"="Vừa hoạt động";
+"%0.0f分钟前在线"="Hoạt động %0.0f phút trước";
+"全员禁言中"="Tất cả thành viên đang bị cấm chat";
+"禁言中"="Đang bị cấm chat";
+"[草稿]"="[Nháp]";
+"@所有人"="@All";
+"选择一个聊天"="Chọn một cuộc trò chuyện";
+"选择提醒的人"="Lựa chọn người nhắc nhở";
+
+
+// WKConversationInputPanel
+
+"按住 说话"="Bấm giữ để ghi âm";
+"请在iPhone的“设置-隐私”选项中，允许访问你的麦克风"="Vui lòng mở quyền truy cập micro trong phần Cài đặt > Quyền riêng tư của iPhone";
+"说话时间太短"="Thời lượng ghi âm quá ngắn";
+"发送的内容太长！"="Nội dung gửi quá dài!";
+
+// WKCardCell
+
+"个人名片"="Danh thiếp của tôi";
+
+// WKCardContent
+
+"[名片]"="[Danh thiếp]";
+
+// WKGIFContent
+
+"[表情]"="[Biểu tượng cảm xúc]";
+
+// WKHistorySplitTipCell
+
+"以上为历史消息"="Trên đây là những tin nhắn cũ";
+
+// WKMergeForwardCell
+
+"聊天记录"="Lịch sử trò chuyện";
+
+// WKMergeForwardContent
+
+"群的聊天记录"="Lịch sử trò chuyện nhóm";
+"[聊天记录]"="[Lịch sử trò chuyện]";
+"%@的聊天记录"="Lịch sử trò chuyện của %@";
+"%@和%@的聊天记录"="Lịch sử trò chuyện của %@ và %@";
+
+// WKMessageRevokeCell
+
+"你"="Bạn";
+"%@撤回了一条消息"="%@ thu hồi tin nhắn";
+
+// WKScreenshotContent
+"%@在聊天中截屏了"="%@ chụp màn hình đoạn chat";
+
+// WKSystemMessageCell
+
+"去确认"="Xác nhận";
+"数据错误！"="Lỗi dữ liệu";
+
+// WKTextMessageCell
+
+"%@可能是一个电话号码，你可以"="%@ Có thể là một số điện thoại, bạn có thể";
+"呼叫"="Gọi";
+"手机格式不正确！"="Định dạng số điện thoại không hợp lệ!";
+"复制号码"="Sao chép số";
+"添加到手机通讯录"="Thêm vào danh bạ";
+"创建新联系人"="Tạo liên hệ mới";
+"添加到现有联系人"="Thêm vào liên hệ có sẵn";
+
+// WKMultiplePanel
+
+"逐条转发"="Chuyển tiếp từng tin";
+"合并转发"="Chuyển tiếp tất cả";
+
+// WKMoreItemClickEvent
+
+"权限提醒"="Nhắc nhở quyền truy cập";
+"请在设置里打开图片读取权限！"="Vui lòng mở quyền truy cập ảnh trong phần Cài đặt!";
+
+// WKConversationListCell
+
+"群聊"="Nhóm trò chuyện";
+"无"="Không";
+"刚刚"="Vừa xong";
+"%0.0f分钟"="%0.0f phút";
+"正在输入"="Đang soạn tin";
+"%@ 正在输入"="%@ đang soạn tin";
+
+
+// WKConversationListSelectVM
+
+"创建新的聊天"="Tạo cuộc trò chuyện mới";
+"最近聊天"="Trò chuyện gần đây";
+
+// WKConversationListVC
+
+"连接中"="Đang kết nối";
+"收取中"="Đang nhận";
+"已断开"="Đã ngắt kết nối";
+"当前网络不可用，请检查网络设置"="Mạng không khả dụng, vui lòng kiểm tra cài đặt mạng";
+"还连续%ld次输入错误，将会清空该聊天记录！\n如果您忘记聊天密码，您可以重置聊天密码"="Nếu bạn tiếp tục nhập sai liên tiếp %ld lần, lịch sử trò chuyện này sẽ bị xóa! \nNếu bạn quên mật khẩu trò chuyện, bạn có thể đặt lại mật khẩu trò chuyện.";
+"错误密码"="Sai mật khẩu";
+"确认删除"="Xác nhận xóa";
+"标为已读"="Đánh dấu đã đọc";
+"标为未读"="Đánh dấu chưa đọc";
+"关闭通知"="Tắt thông báo";
+"打开通知"="Mở thông báo";
+"置顶"="Ghim";
+"取消置顶"="Bỏ ghim";
+
+// WKChannelMessageSearchVM
+
+"%lu条与“%@”相关记录"="%lu record related to %@";
+
+// WKGlobalSearchVM
+
+"联系人"="Người liên hệ";
+"更多联系人"="Xem thêm danh sách liên lạc";
+"更多群聊"="Xem thêm nhóm chat";
+"更多聊天记录"="Xem thêm lịch sử trò chuyện";
+
+// WKSearchContactsCell
+
+"包含:"="Gồm:";
+
+// WKSearchMessageCell
+
+"%d 条相关聊天记录"="%d lịch sử trò chuyện liên quan";
+
+// WKGroupBlacklistVC
+
+"群黑名单"="Danh sách đen nhóm";
+"把“%@”拉出群黑名单？"="Kéo ‘%@’ ra khỏi danh sách đen của nhóm?";
+
+// WKGroupBlacklistVM
+
+"添加黑名单成员"="Thêm thành viên vào danh sách đen";
+"选择成员"="Chọn thành viên";
+
+
+
+// WKGroupQRCodeVC
+
+"该二维码%ld天内(%@)前有效，重新进入将更新"="Mã QR này còn hiệu lực trong %ld ngày (%@), lần truy cập tiếp theo sẽ cập nhật lại";
+"保存图片"="Lưu ảnh";
+"保存图片失败！请检查是否开启权限!"="Lưu ảnh không thành công! Vui lòng kiểm tra quyền truy cập.!";
+"保存成功！"="Đã lưu ảnh!";
+"该群已开启进群验证"="Nhóm này đã bật xác minh tham gia nhóm";
+"只可通过邀请进群"="Chỉ có thể tham gia nhóm thông qua lời mời";
+"群二维码名片"="Mã QR nhóm";
+
+// WKBlacklistVC
+
+"黑名单"="Danh sách chặn";
+
+// WKCommonSettingVC
+
+"退出后不会删除任何历史数据，下次登录依然可以使用本账号。"="Sau khi đăng xuất, sẽ không xóa bất kỳ dữ liệu lịch sử nào, lần đăng nhập sau bạn vẫn có thể sử dụng tài khoản này.";
+"退出登录"="Đăng xuất";
+"将删除所有个人和群的聊天记录。"="Tất cả lịch sử trò chuyện cá nhân và nhóm sẽ bị xóa.";
+"是否清除所有图片缓存。"="Bạn có chắc muốn xóa tất cả bộ nhớ đệm hình ảnh?";
+"清空图片缓存"="Xóa bộ nhớ đệm hình ảnh";
+"清空图片/视频缓存"="Xóa bộ nhớ đệm hình ảnh/video";
+"是否清除缓存"="Bạn có chắc muốn xóa bộ nhớ đệm?";
+"清空缓存"="Xóa bộ nhớ đệm";
+
+// WKCommonSettingVM
+
+"深色模式"="Giao diện tối";
+"跟随系统"="Theo hệ thống";
+"打开"="Mở";
+"关闭"="Tắt";
+"版本信息"="Thông tin phiên bản";
+"调试"="Gỡ lỗi";
+
+// WKDarkModeVM
+
+"开启后，将跟随系统打开或关闭深色模式"="Sau khi bật, chế độ tối sẽ tự động bật hoặc tắt theo hệ thống";
+"普通模式"="Chế độ mặc định";
+
+// WKMeAvatarVC
+
+"个人头像"="Ảnh đại diện";
+"拍照"="Chụp ảnh mới";
+"从手机相册选择"="Chọn ảnh trên máy";
+"保存图片"="Lưu ảnh";
+"保存失败！"="Lưu thất bại!";
+"保存成功！"="Lưu thành công!";
+"上传中"="Đang tải ảnh";
+"上传失败"="Tải lên thất bại";
+"上传成功"="Cập nhật thành công";
+
+// WKMeInfoVC
+
+"个人信息"="Thông tin cá nhân";
+"修改名字"="Đổi tên";
+"修改%@号"="Chỉnh sửa @ ID";
+"%@号只允许修改一次"="Tài khoản %@ chỉ được phép chỉnh sửa một lần";
+"男"="Nam";
+"女"="Nữ";
+"头像"="Ảnh đại diện";
+"名字"="Tên";
+"我的二维码"="Mã QR của tôi";
+"性别"="Giới tính";
+"群头像"="Ảnh đại diện nhóm";
+"群聊名称"="Tên nhóm";
+"是否显示昵称"="Hiển thị biệt danh của bạn?";
+"群成员禁言"="Cấm chat";
+"群聊邀请确认"="Xác nhận lời mời tham gia nhóm";
+"是否启用聊天密码"="Sử dụng mật khẩu cho cuộc trò chuyện này?";
+"截屏通知"="Thông báo chụp màn hình";
+"撤回消息提醒"="Thông báo thu hồi tin nhắn";
+"加群提醒"="Thông báo thành viên mới tham gia";
+"禁止添加好友"="Chặn kết bạn";
+"消息回执"="Đã nhận";
+"是否开启焚烧模式"="Mở chế độ tự động xóa tin nhắn?";
+"是否允许查看历史消息"="Cho phép xem lịch sử tin nhắn?";
+"添加群管理员"="Thêm quản trị viên nhóm";
+"转让群组身份"="Chuyển quyền chủ sở hữu nhóm";
+
+
+// WKMeInfoVM
+
+"%@号"="Tài khoản %@";
+
+// WKMePushSettingVC
+
+"新消息通知"="Thông báo tin nhắn mới";
+
+// WKMePushSettingVM
+
+"通知显示消息详情"="Thông báo hiển thị nội dung chi tiết tin nhắn";
+"在%@运行时，您可以设置是否需要声音或震动"="Trong khi sử dụng %@，bạn có thể thiết lập chế độ âm thanh hoặc rung";
+"声音"=" m thanh";
+"震动"="Rung";
+"关闭后，手机将不再收到新消息通知"="Sau khi tắt, điện thoại của bạn sẽ không còn nhận được thông báo tin nhắn mới nữa";
+
+// WKMeQRCodeVC
+
+"扫一扫上面的二维码图案，加我%@"="Quét mã QR để kết bạn với %@";
+
+
+// WKConversationPasswordVM
+
+"验证您的登录密码"="Xác thực mật khẩu đăng nhập của bạn";
+"请确认您的登录密码后，再设定6位数字的聊天密码"="Vui lòng xác nhận mật khẩu đăng nhập sau đó đặt mật khẩu trò chuyện gồm 6 chữ số";
+"请输入%@登录密码"="Vui lòng nhập mật khẩu đăng nhập của %@";
+"请输入6位数字聊天密码"="Vui lòng nhập mật khẩu trò chuyện gồm 6 chữ số";
+"登录密码不能为空！"="Mật khẩu đăng nhập không được để trống!";
+"聊天密码不能为空！"="Mật khẩu trò chuyện không được để trống!";
+"两次密码输入不一致！"="Mật khẩu không khớp!";
+
+// WKDeviceManagerVC
+
+"登录设备管理"="Quản lý thiết bị đăng nhậpị";
+"最后登录时间: %@"="Lần đăng nhập cuối";
+"删除设备"="Xóa thiết bị";
+
+// WKDeviceManagerVM
+
+"开启登录保护后，在陌生设备登录%@需要进行安全验证。推荐开启，保障你的账号安全"="Sau khi bật xác minh đăng nhập, cần phải xác thực an toàn để đăng nhập vào %@ trên một thiết bị lạ. Gợi ý kích hoạt để đảm bảo tính bảo mật cho tài khoản của bạn";
+"登录保护"="Xác minh đăng nhập";
+"通过安全验证的设备"="Thiết bị đã qua xác minh an toàn";
+"你可以查看列表中设备的“最后登录时间”，或删除设备。删除后在该设备登录%@需要重新进行安全验证。"="Bạn có thể kiểm tra 'Thời gian đăng nhập lần cuối' của các thiết bị trong danh sách, hoặc thao tác xóa thiết bị. Sau khi xóa, việc đăng nhập vào %@ trên thiết bị đó sẽ cần xác minh an toàn lại.";
+
+// WKResetLoginPasswordVC
+
+"登录密码"="Mật khẩu đăng nhập";
+"验证您的电话号码"="Xác thực số điện thoại";
+"%@会发送短信验证手机号码，请输入您的验证码"="%@ sẽ gửi SMS xác minh qua số điện thoại của bạn, vui lòng nhập mã xác minh";
+"请输入手机号"="Vui lòng nhập số điện thoại";
+"短信验证码"="Mã xác minh SMS";
+"获取验证码"="Nhận mã xác minh";
+"请输入登录密码"="Vui lòng nhập mật khẩu đăng nhập";
+"发送验证码过于频繁，请在%d秒后重试"="Bạn thao tác quá nhiều. Vui lòng thử lại sau %d giây";
+"手机号已注册,去登录？"="Số điện thoại đã được đăng ký, đi đến đăng nhập?";
+"去登录"="Đi đến đăng nhập";
+"获取中"="Đang gửi";
+"重新发送(%li)"="Gửi lại (%li)";
+"手机号不能为空！"="Số điện thoại di động không được để trống!";
+"验证码不能为空！"="Mã xác minh không được để trống!";
+"密码不能为空！"="Mật khẩu không được để trống!";
+
+// WKSecuritySettingVC
+
+"安全与隐私"="An toàn và bảo mật";
+
+// WKSecuritySettingVM
+
+"可以通过以下方式搜索好友"="Bạn có thể tìm kiếm bạn bè theo những cách sau";
+"关闭后，其他用户将不能通过上述信息搜索好友"="Sau khi tắt, người dùng khác không thể tìm kiếm bạn bằng những thông tin trên";
+"允许手机号搜索"="Cho phép tìm kiếm bằng số điện thoại";
+"允许%@号搜索"="Cho phép%@ ID tìm kiếm";
+"查看并管理设备，开启登录保护，保障账号安全。"="Kiểm tra và quản lý thiết bị, bật bảo vệ đăng nhập, đảm bảo an toàn cho tài khoản.";
+"登录设备管理"="Quản lý thiết bị đăng nhập";
+"已开启"="Đã mở";
+"已关闭"="Đã tắt";
+"屏幕保护"="Bảo vệ màn hình";
+"锁屏密码"="Mật khẩu màn hình khóa";
+"断网屏保"="Màn hình chờ khi mất kết nối internet";
+"设置解锁密码"="Cài đặt mật khẩu mở khóa";
+
+// WKScanVC
+
+"扫描失败！"="Quét mã thất bại!";
+"知道了"="Đã hiểu";
+"没有相册权限，是否前往设置"="Không có quyền truy cập vào thư viện ảnh, bạn có muốn vào cài đặt không?";
+"没有相机权限，是否前往设置"="Không có quyền truy cập vào camera, bạn có muốn vào cài đặt không?";
+"设置"="Cài đặt";
+"相册"="Thư viện ảnh";
+"开灯"="Bật đèn";
+"关灯"="Tắt đèn";
+"二维码"="Mã QR";
+
+
+// WKTimeTool
+
+"昨天%@"="Hôm qua %@";
+"前天%@"="Hôm kia %@";
+"星期日"="Chủ nhật";
+"星期一"="Thứ hai";
+"星期二"="Thứ ba";
+"星期三"="Thứ tư";
+"星期四"="Thứ năm";
+"星期五"="Thứ sáu";
+"星期六"="Thứ bảy";
+
+// CWVoiceView
+
+"对讲"="Đối thoại";
+"录音"="Ghi âm";
+
+// CWRecordStateView
+
+"按住说话"="Nhấn giữ để nói";
+"点击录音"="Nhấn để ghi âm";
+"按住变声"="Nhấn giữ để thay đổi giọng";
+"松手试听"="Thả tay để nghe thử";
+"松手取消发送"="Thả tay để hủy gửi";
+"准备中"="Đang chuẩn bị";
+
+// ATShowAlertView
+
+"权限设置"="Cài đặt quyền";
+"前往设置"="Đi đến cài đặt";
+"下次再说"="Để sau";
+"请在iPhone的“设置-隐私”选项中，允许访问你的相册"="Vui lòng vào 'Cài đặt - Quyền riêng tư' trên iPhone cho phép truy cập vào thư viện ảnh của bạn";
+"请在iPhone的“设置-隐私”选项中，允许访问你的麦克风"="Vui lòng vào 'Cài đặt - Quyền riêng tư' trên iPhone cho phép truy cập vào micro của bạn.";
+
+// JCVideoRecordView
+
+"长按拍摄"="Nhấn và giữ để chụp";
+
+
+
+
+// WKWebClientInfoVC
+
+"网页端"="Phiên bản web";
+"%@网页端"="Phiên bản web %@";
+"web端网址"="Địa chỉ web";
+"二维码扫描登录"="Quét mã QR để đăng nhập";
+"请使用浏览器访问%@,然后扫描二维码登录。为了您更好的体验，建议使用谷歌，火狐浏览器。"="Để có trải nghiệm tốt hơn, chúng tôi khuyên bạn nên sử dụng Google Chrome hoặc Mozilla Firefox.";
+
+// WKDeleteAccount
+
+"注销账号："="Hủy tài khoản:";
+"账号注销是不可恢复的操作，请您仔细考虑，谨慎操作，操作前务必审慎阅读，充分理解以下内容。如您有任何疑问、意见和建议，可联系客服咨询，%@客服将给予您必要的协助。" = "Hủy tài khoản là thao tác không thể khôi phục, hãy cân nhắc kĩ trước khi tiến hành hủy tài khoản. Trước khi thao tác, hãy chắc chắn đọc kỹ và hiểu đầy đủ các nội dung dưới đây. Nếu bạn có bất kỳ thắc mắc, ý kiến hoặc đề xuất nào, vui lòng liên hệ với dịch vụ khách hàng, %@ dịch vụ khách hàng sẽ cung cấp sự hỗ trợ cần thiết cho bạn.";
+"注销须知："="Lưu ý khi hủy tài khoản:";
+"账号处于安全状态：\r您的账号未被他人盗取，账号不存在被封禁等风险。"="Tài khoản đang ở trạng thái an toàn: \n Tài khoản của bạn chưa bị đánh cắp và không có nguy cơ sẽ bị khóa.";
+"全部财产均已结清：\n账号内不存在已充值的相关财产。"="Tất cả tài sản đã được thanh toán: \n Trong tài khoản không còn tồn tại bất kỳ tài sản nào liên quan nào đã nạp.";
+"绑定目前可用的安全手机：\n用于确认当前账号的身份归属情况。"="Liên kết số điện thoại an toàn hiện có: \n Dùng để xác nhận tình trạng quyền sở hữu tài khoản hiện tại.";
+"特别说明："="Chú thích đặc biệt:";
+"账号注销申请时即放弃该账号在%@聊天软件所有涉及相关数据，包括但不限于该账号的资产，权益，记录等一切内容，将视为你自愿放弃。"="Khi gửi yêu cầu hủy tài khoản, đồng nghĩa với việc từ bỏ tất cả dữ liệu liên quan đến tài khoản đó trên phần mềm chat %@, bao gồm nhưng không giới hạn ở tài sản, quyền lợi, hồ sơ và mọi nội dung khác liên quan, điều này sẽ được xem là bạn tự nguyện từ bỏ.";
+"账号成功注销后，你将无法登录"="Sau khi tài khoản bị hủy, bạn sẽ không thể đăng nhập";
+"已成功注销的账号无法进行找回。"="Tài khoản đã được hủy không thể khôi phục lại.";
+"轻按下方\"注销账号\"按钮，即表示你已阅读同意[《用户使用协议》]"="Nhấn nhẹ vào \"nút\" Hủy tài khoản bên dưới, it means that you have read and agreed to the [User Agreement]";
+"再想想"="Suy nghĩ lại";
+
+
+// WKMyInviteCodeVC
+"我的邀请码"="Mã mời";
+"复制"="Sao chép";
+"禁用"="Chặn";
+"启用"="Kích hoạt";
+"复制成功"="Sao chép thành công";
+
+
+
