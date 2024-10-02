@@ -50,5 +50,7 @@ NS_ASSUME_NONNULL_END
 @property(nonatomic,strong,nonnull) NSNumber *lockAfterMinute; // 多久后锁屏
 @property(nonatomic,strong) NSDictionary * _Nullable setting; // 相关设置
 @property(nonatomic,copy) NSString * _Nonnull rsaPublicKey; // 服务器公钥
+// admin 可以建群
+@property(nonatomic,copy) NSString *_Nonnull role; // 成员角色,管理员admin  普通:user
 
 @end

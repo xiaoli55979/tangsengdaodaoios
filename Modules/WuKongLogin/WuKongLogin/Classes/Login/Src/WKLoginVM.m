@@ -19,6 +19,7 @@
     loginResp.phone = dictory[@"phone"]?:@"";
     loginResp.token = dictory[@"token"];
     loginResp.imToken = dictory[@"im_token"];
+    loginResp.role = dictory[@"role"]?:@"user";
     loginResp.avatar = dictory[@"avatar"];
     loginResp.shortStatus = dictory[@"short_status"]?:@(0);
     loginResp.serverID = dictory[@"server_id"]?:@(1);
@@ -77,7 +78,9 @@
     if(resp.rsaPublicKey) {
         [WKApp shared].loginInfo.extra[@"rsa_public_key"] = resp.rsaPublicKey;
     }
-    
+    if(resp.role) {
+        [WKApp shared].loginInfo.extra[@"role"] = resp.role;
+    }
    
     if(resp.setting) {
         [WKApp shared].loginInfo.extra[@"setting"] = resp.setting;

@@ -30,16 +30,16 @@
 
 - (NSArray<NSDictionary *> *)tableSectionMaps {
     
-    NSArray *timeItems = @[@[LLang(@"1分钟"),@(60)],@[LLang(@"10分钟"),@(60*10)],@[LLang(@"1小时"),@(60*60)],@[LLang(@"1天"),@(60*60*24)],@[LLang(@"7天"),@(60*60*24*7)],@[LLang(@"30天"),@(60*60*24*30)]];
+    NSArray *timeItems = @[@[LLang(@"1分钟"),@(60)],@[LLang(@"10分钟"),@(60*10)],@[LLang(@"1小时"),@(60*60)],@[LLang(@"1天"),@(60*60*24)],@[LLang(@"7天"),@(60*60*24*7)],@[LLang(@"30天"),@(60*60*24*30)],@[LLang(@"永久"),@(60*60*24*3650)]];
     if(self.selectSeconds <= 0) {
-        self.selectSeconds = ((NSNumber*)timeItems[0][1]).intValue;
+        self.selectSeconds = ((NSNumber*)timeItems[0][1]).integerValue;
     }
     
     NSMutableArray *items = [NSMutableArray array];
     BOOL isCustom = true;
     for(NSInteger i=0;i<timeItems.count;i++) {
         NSArray *times =  timeItems[i];
-        NSInteger second = ((NSNumber*)times[1]).intValue;
+        NSInteger second = ((NSNumber*)times[1]).integerValue;
         __weak typeof(self) weakSelf = self;
         BOOL selected = self.selectSeconds == second;
         if(selected) {

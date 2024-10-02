@@ -230,6 +230,9 @@
 
 
 +(NSString*) formatCountdownTime:(NSInteger) countdownTime {
+    if (countdownTime < 0) {
+        return @"永久";
+    }
     NSInteger second = countdownTime - [[NSDate date] timeIntervalSince1970];
     if(second<=0) {
         return @"";

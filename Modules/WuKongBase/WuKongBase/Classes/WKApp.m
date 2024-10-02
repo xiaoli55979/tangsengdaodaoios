@@ -372,6 +372,9 @@ static WKApp *_instance;
         // 同步安全提醒敏感词
         [[WKSecurityTipManager shared] syncIfNeed];
         
+        /// 权限检测
+        [weakSelf checkPermissionIfNeed];
+        
         return nil;
     }];
     
@@ -427,6 +430,9 @@ static WKApp *_instance;
     
     // 收藏的表情加载
     [self loadCollectStickersIfNeed];
+    
+    /// 权限检测
+    [self checkPermissionIfNeed];
     
     // 图片换成key设置
 //    [[SDWebImageManager sharedManager] setCacheKeyFilter:[[SDWebImageCacheKeyFilter alloc] initWithBlock:^NSString * _Nullable(NSURL * _Nonnull url) {
@@ -643,8 +649,10 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
 -(void) appWillEnterForeground:(NSNotification*) notification {
     WKLogDebug(@"appWillEnterForeground--->");
     [self showLockScreenProtectIfNeed];
-    
     [self showScreenProtectIfNeed];
+    
+    /// 权限检测
+    [self checkPermissionIfNeed];
 }
 
 -(void) appWillResignActive:(NSNotification*) notification  {
@@ -1388,12 +1396,6 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
     
     // ---------- 最近会话列表的+  ----------
     
-    [self setMethod:WKPOINT_CONVERSATION_ADD_STARTCHAT handler:^id _Nullable(id  _Nonnull param) {
-        return [WKConversationAddItem title:LLangW(@"发起群聊", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/StartChat"] onClick:^{
-            [[WKApp shared] invoke:WKPOINT_CONVERSATION_STARTCHAT param:nil];
-        }];
-    } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:9000];
-    
     [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
         return [WKConversationAddItem title:LLangW(@"添加朋友", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/FriendAdd"] onClick:^{
             [[WKApp shared] invoke:WKPOINT_CONVERSATION_ADDCONTACTS param:nil];
@@ -1489,6 +1491,25 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
         }
         
     }
+}
+
+// 权限检测
+-(void) checkPermissionIfNeed {
+    __weak typeof(self) weakSelf = self;
+    /// 只有管理员才能建群
+    NSString *role =  [WKApp shared].loginInfo.extra[@"role"];
+    if ([role isEqualToString:@"admin"]) {
+        [self setMethod:WKPOINT_CONVERSATION_ADD_STARTCHAT handler:^id _Nullable(id  _Nonnull param) {
+            return [WKConversationAddItem title:LLangW(@"发起群聊", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/StartChat"] onClick:^{
+                [[WKApp shared] invoke:WKPOINT_CONVERSATION_STARTCHAT param:nil];
+            }];
+        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:9000];
+    } else {
+        [self setMethod:WKPOINT_CONVERSATION_ADD_STARTCHAT handler:^id _Nullable(id  _Nonnull param) {
+            return nil;
+        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:9000];
+    }
+
 }
 
 

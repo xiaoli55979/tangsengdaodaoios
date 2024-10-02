@@ -49,6 +49,7 @@
     if(resultDict) {
         self.sensitiveWords = resultDict[@"list"];
         self.tip = resultDict[@"tips"];
+        [self sync];
     }else {
         [self sync];
     }
