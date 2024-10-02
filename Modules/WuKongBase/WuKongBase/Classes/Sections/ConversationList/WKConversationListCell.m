@@ -26,6 +26,7 @@
 #import <WuKongBase/WuKongBase-Swift.h>
 #import "WKUserAvatar.h"
 #import "WKAutoDeleteView.h"
+#import "WKProhibitwordsService.h"
 //#define avatarSize 56.0f
 @interface WKConversationListCell ()
 
@@ -497,6 +498,8 @@
         [reminderStr insertString:LLang(@"[草稿]") atIndex:0];
     }
     
+    /// 敏感词显示处理
+    content = [WKProhibitwordsService.shared filter:content];
     if(model.channel.channelType == WK_GROUP) { // 群组
         if([self showFromName:model] && !hasDraft) {
             NSString *name = [self getFromName];
