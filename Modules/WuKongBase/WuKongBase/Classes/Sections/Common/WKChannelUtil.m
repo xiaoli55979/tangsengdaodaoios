@@ -116,6 +116,30 @@
     if(resultDict[@"allow_view_history_msg"]) {
         [channelInfo setSettingValue:[resultDict[@"allow_view_history_msg"] boolValue] forKey:WKChannelExtraKeyAllowViewHistoryMsg];
     }
+    if(resultDict[@"allow_member_pinned_message"]) {
+        [channelInfo setSettingValue:[resultDict[@"allow_member_pinned_message"] boolValue] forKey:WKChannelExtraKeyAllowMemberPinnedMessage];
+    }
+    if(resultDict[@"allow_view_history_msg"]) {
+        [channelInfo setSettingValue:[resultDict[@"allow_member_quit_remind"] boolValue] forKey:WKChannelExtraKeyAllowMemberQuitRemind];
+    }
+    if(resultDict[@"allow_members_visible"]) {
+        [channelInfo setSettingValue:[resultDict[@"allow_members_visible"] boolValue] forKey:WKChannelExtraKeyAllowMembersVisible];
+    }
+    if(resultDict[@"allow_revoke_message"]) {
+        [channelInfo setSettingValue:[resultDict[@"allow_revoke_message"] boolValue] forKey:WKChannelExtraKeyAllowRevokeMessage];
+    }
+    if(resultDict[@"allow_send_member_card"]) {
+        [channelInfo setSettingValue:[resultDict[@"allow_send_member_card"] boolValue] forKey:WKChannelExtraKeyAllowSendMemberCard];
+    }
+    if(resultDict[@"allow_show_nick"]) {
+        [channelInfo setSettingValue:[resultDict[@"allow_show_nick"] boolValue] forKey:WKChannelExtraKeyAllowShowNick];
+    }
+    if(resultDict[@"forbidden_add_friend"]) {
+        [channelInfo setSettingValue:[resultDict[@"forbidden_add_friend"] boolValue] forKey:WKChannelExtraKeyForbiddenAddFriend];
+    }
+    if(resultDict[@"allow_view_member_info"]) {
+        [channelInfo setSettingValue:[resultDict[@"allow_view_member_info"] boolValue] forKey:WKChannelExtraKeyAllowViewMemberInfo];
+    }
     channelInfo.beBlacklist = resultDict[@"be_blacklist"]?[resultDict[@"be_blacklist"] boolValue]:false;
     channelInfo.beDeleted = resultDict[@"be_deleted"]?[resultDict[@"be_deleted"] boolValue]:false;
     return channelInfo;

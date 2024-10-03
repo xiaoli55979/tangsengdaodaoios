@@ -414,7 +414,7 @@
 "加群提醒"="Join group reminder";
 "禁止添加好友"="Prohibit adding friends";
 "消息回执"="Message receipt";
-"是否允许查看历史消息"="Whether to allow viewing of historical messages";
+"允许查看历史消息"="Whether to allow viewing of historical messages";
 "添加群管理员"="Add group admin";
 "阅后即焚" = "Burn After Reading";
 "请输入阅后即焚时长(%d)" = "Please enter the burn after reading duration (%d)";

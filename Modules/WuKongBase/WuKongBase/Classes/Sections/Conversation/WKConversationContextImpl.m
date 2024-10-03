@@ -671,7 +671,7 @@
     }else {
         if(self.conversationVM.channelInfo) {
             NSInteger forbiddenExpirTime = [self.conversationVM.memberOfMe.extra[@"forbidden_expir_time"] integerValue];
-            BOOL forbidden = self.conversationVM.channelInfo.forbidden || forbiddenExpirTime > 0;
+            BOOL forbidden = self.conversationVM.channelInfo.forbidden || forbiddenExpirTime != 0;
             return forbidden;
         }
     }

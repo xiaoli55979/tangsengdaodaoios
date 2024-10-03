@@ -49,6 +49,78 @@ static WKGroupManager *_instance;
 }
 
 
+- (NSString *)getKeyString:(WKGroupSettingKey)key {
+    NSString *keyStr = @"";
+    switch (key) {
+        case WKGroupSettingKeyMute:
+            keyStr = @"mute";
+            break;
+        case WKGroupSettingKeyStick:
+            keyStr = @"top";
+            break;
+        case WKGroupSettingKeySave:
+            keyStr = @"save";
+            break;
+        case WKGroupSettingKeyShowNick:
+            keyStr = @"show_nick";
+            break;
+        case WKGroupSettingKeyInvite:
+            keyStr = @"invite";
+            break;
+        case WKGroupSettingKeyForbidden:
+            keyStr = @"forbidden";
+            break;
+        case WKGroupSettingKeyForbiddenAddFriend:
+            keyStr = @"forbidden_add_friend";
+            break;
+        case WKGroupSettingKeyScreenshot:
+            keyStr = @"screenshot";
+            break;
+        case WKGroupSettingKeyRevokeRemind:
+            keyStr = @"revoke_remind";
+            break;
+        case WKGroupSettingKeyJoinGroupRemind:
+            keyStr = @"join_group_remind";
+            break;
+        case WKGroupSettingKeyChatPwdOn:
+            keyStr = @"chat_pwd_on";
+            break;
+        case WKGroupSettingKeyReceipt:
+            keyStr = @"receipt";
+            break;
+        case WKGroupSettingKeyAllowViewHistoryMsg:
+            keyStr = @"allow_view_history_msg";
+            break;
+        case WKGroupSettingKeyFlame:
+            keyStr = @"flame";
+            break;
+        case WKGroupSettingKeyAllowMemberQuitRemind:
+            keyStr = @"allow_member_quit_remind";
+            break;
+        case WKGroupSettingKeyPinnedMessage:
+            keyStr = @"allow_member_pinned_message";
+            break;
+        case WKGroupSettingKeyAllowMembersVisible:
+            keyStr = @"allow_members_visible";
+            break;
+        case WKGroupSettingKeyAllowRevokeMessage:
+            keyStr = @"allow_revoke_message";
+            break;
+        case WKGroupSettingKeyAllowSendMemberCard:
+            keyStr = @"allow_send_member_card";
+            break;
+        case WKGroupSettingKeyAllowViewMemberInfo:
+            keyStr = @"allow_view_member_info";
+            break;
+        case WKGroupSettingKeyAllowShowNick:
+            keyStr = @"allow_show_nick";
+            break;
+        default:
+            break;
+    }
+    return keyStr;
+}
+
 //- (NSLock *)syncMembersRequestLock {
 //    if(!_syncMembersRequestLock) {
 //        _syncMembersRequestLock = [[NSLock alloc] init];
@@ -319,6 +391,13 @@ static WKGroupManager *_instance;
         [_delegate groupManagerSetting:self groupNo:groupNo key:key value:value];
     }
 }
+
+- (void)groupManagerSetting:(NSString *)groupNo key:(NSString*)key value:(id)value {
+    if(_delegate && [_delegate respondsToSelector:@selector(groupManagerSetting:groupNo:key:value:)]) {
+        [_delegate groupManagerUpdate:self groupNo:groupNo attrKey:key attrValue:[NSString stringWithFormat:@"%@",value] complete:nil];
+    }
+}
+
 
 - (AnyPromise*)groupRemark:(NSString *)groupNo remark:(NSString*)remark {
     if(_delegate && [_delegate respondsToSelector:@selector(groupSettingRemark:groupNo:remark:)]) {

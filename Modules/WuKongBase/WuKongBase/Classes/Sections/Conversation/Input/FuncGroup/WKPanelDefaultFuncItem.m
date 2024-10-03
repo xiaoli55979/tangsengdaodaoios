@@ -231,6 +231,16 @@
         [hiddenUsers addObject:conversationContext.channel.channelId];
     }
     
+    /// 获取群信息
+    WKChannelInfo *channelInfo = [[WKSDK shared].channelManager getChannelInfo:conversationContext.channel];
+    /// 获取成员信息
+    WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:conversationContext.channel uid:[WKApp shared].loginInfo.uid];
+    BOOL status = [channelInfo.extra[@"allow_send_member_card"] boolValue];
+    if (channelInfo.extra[@"allow_send_member_card"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
+        [WKAlertUtil alert:LLangW(@"当前无权限",self)];
+        return ;
+    }
+    
     [[WKApp shared] invoke:WKPOINT_CONTACTS_SELECT param:@{@"mode":@"single",@"on_finished":^(NSArray<NSString*>*uids){
         if(uids && [uids count]<=0) {
             return;
@@ -243,7 +253,8 @@
         }
         __weak typeof(self) weakSelf = self;
         id<WKConversationContext> context = self.inputPanel.conversationContext;
-        
+
+
         [WKAlertUtil alert:[NSString stringWithFormat:LLangW(@"发送%@的名片到当前聊天",weakSelf),channelInfo.displayName] buttonsStatement:@[LLangW(@"取消",weakSelf),LLangW(@"确定",weakSelf)] chooseBlock:^(NSInteger buttonIdx) {
             btn.selected = false;
             if(buttonIdx == 1) {

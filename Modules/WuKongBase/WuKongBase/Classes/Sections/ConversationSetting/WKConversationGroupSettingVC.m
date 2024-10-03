@@ -33,8 +33,8 @@
 
 @property(nonatomic,strong) UIView *headerView;
 
-
-
+@property (nonatomic, strong) WKChannelInfo *channelInfo;
+@property (nonatomic, strong) WKChannelMember *memberOfMy;
 @end
 
 @implementation WKConversationGroupSettingVC
@@ -87,6 +87,7 @@
         [self.viewModel syncMembersIfNeed];
     }
     
+    
     self.tableView.tableHeaderView = self.headerView;
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
@@ -95,6 +96,16 @@
     // 监听群成员更新通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberUpdate) name:WKNOTIFY_GROUP_MEMBERUPDATE object:nil];
     
+    /// 获取群信息
+    WKChannelInfo *channelInfo = [[WKSDK shared].channelManager getChannelInfo:self.channel];
+    self.channelInfo = channelInfo;
+    /// 获取成员信息
+    WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:self.channel uid:[WKApp shared].loginInfo.uid];
+    self.memberOfMy = memberOfMy;
+    BOOL status = [channelInfo.extra[@"allow_members_visible"] boolValue];
+    if (channelInfo.extra[@"allow_members_visible"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
+        self.tableView.tableHeaderView = nil;
+    }
 }
 
 
@@ -224,6 +235,12 @@
 }
 
 - (void)settingMemberGridView:(WKSettingMemberGridView *)settingMemberGridView didSelect:(NSInteger)index {
+    BOOL status = [self.channelInfo.extra[@"allow_view_member_info"] boolValue];
+    if (self.channelInfo.extra[@"allow_view_member_info"] != nil && !status && self.memberOfMy.role == WKMemberRoleCommon) {
+        [WKAlertUtil alert:LLangW(@"当前无权限",self)];
+        return;
+    }
+    
     if([self showMemberAddBtn] && index == self.topNMembers.count) {
         [self memberAddClick];
     }else if([self showMemberSubBtn] && index == self.topNMembers.count + 1) {

@@ -1238,6 +1238,17 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
     [self setMethod:WKPOINT_LONGMENUS_REVOKE handler:^id _Nullable(id  _Nonnull param) {
         WKMessageModel *message = param[@"message"];
         
+        /// 获取群信息
+        WKChannelInfo *channelInfo = [[WKChannelInfoDB shared] queryChannelInfo:message.channel];
+
+        /// 获取成员信息
+        WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:message.channel uid:[WKApp shared].loginInfo.uid];
+        BOOL status = [channelInfo.extra[@"allow_revoke_message"] boolValue];
+        if (channelInfo.extra[@"allow_revoke_message"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
+            return nil;
+        }
+        
+        
         if(message.status != WK_MESSAGE_SUCCESS) {
             return nil;
         }
@@ -1784,4 +1795,11 @@ NSString * const WKChannelExtraKeyChatPwd = @"chat_pwd_on"; // 聊天密码
 NSString * const WKChannelExtraKeySource = @"source"; // 来源
 NSString * const WKChannelExtraKeyVercode = @"vercode"; // 加好友验证码
 NSString * const WKChannelExtraKeyAllowViewHistoryMsg = @"allow_view_history_msg"; // 允许新成员查看群历史消息
+NSString * const WKChannelExtraKeyAllowMemberPinnedMessage = @"allow_member_pinned_message"; // 某条消息置顶
+NSString * const WKChannelExtraKeyAllowMemberQuitRemind = @"allow_member_quit_remind"; // 成员退出提醒
+NSString * const WKChannelExtraKeyAllowMembersVisible = @"allow_members_visible"; // 允许查看成员
+NSString * const WKChannelExtraKeyAllowRevokeMessage = @"allow_revoke_message"; // 允许撤回
+NSString * const WKChannelExtraKeyAllowSendMemberCard = @"allow_send_member_card"; // 发送名片
+NSString * const WKChannelExtraKeyAllowShowNick = @"allow_show_nick"; // 显示群昵称
+NSString * const WKChannelExtraKeyAllowViewMemberInfo = @"allow_view_member_info"; // 查看成员信息
 NSString * const WKChannelExtraKeyRemark = @"remark"; // 备注

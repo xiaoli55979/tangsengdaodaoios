@@ -34,7 +34,15 @@ typedef enum : NSUInteger {
     WKGroupSettingKeyReceipt, // 回执开关
     WKGroupSettingKeyAllowViewHistoryMsg, // 允许新成员查看历史消息
     WKGroupSettingKeyRemark, // 群备注
-    WKGroupSettingKeyFlame // 阅后即焚
+    WKGroupSettingKeyFlame, // 阅后即焚
+    WKGroupSettingKeyAllowMemberQuitRemind, // 退群提醒
+    WKGroupSettingKeyPinnedMessage, // 固定消息
+    WKGroupSettingKeyAllowMembersVisible, // 成员是否可见
+    WKGroupSettingKeyAllowRevokeMessage, // 能否撤回消息
+    WKGroupSettingKeyAllowSendMemberCard, // 能否发送名片
+    WKGroupSettingKeyAllowShowNick, // 是否显示群昵称
+    WKGroupSettingKeyAllowViewMemberInfo // 能否查看成员信息
+    
 } WKGroupSettingKey;
 
 // 群公告
@@ -44,6 +52,7 @@ static NSString *WKGroupAttrKeyName = @"name";
 
 
 @protocol WKGroupManagerDelegate <NSObject>
+
 
 /**
  创建群组
@@ -194,6 +203,8 @@ static NSString *WKGroupAttrKeyName = @"name";
 
 @property(nonatomic,strong) id<WKGroupManagerDelegate> delegate;
 
+- (NSString *)getKeyString:(WKGroupSettingKey)key;
+
 /**
  创建群聊
 
@@ -295,6 +306,13 @@ static NSString *WKGroupAttrKeyName = @"name";
  */
 -(void) groupSetting:(NSString*)groupNo settingKey:(WKGroupSettingKey)key on:(BOOL)on;
 
+/**
+群管理设置
+ @param groupNo 群编号
+ @param key 设置key
+ @param value 设置对应的值
+ */
+- (void)groupManagerSetting:(NSString *)groupNo key:(NSString*)key value:(id)value;
 /**
 群设置
  @param groupNo 群编号

@@ -19,11 +19,22 @@
     
     return _shared;
 }
+// 更新群设置
+-(void) updateGroupManager:(WKGroupSettingKey)key on:(BOOL)on groupNo:(NSString*)groupNo{
+    [[WKGroupManager shared] groupSetting:groupNo settingKey:key on:on];
+}
 
 // 更新群设置
 -(void) updateGroupSetting:(WKGroupSettingKey)key on:(BOOL)on groupNo:(NSString*)groupNo{
     [[WKGroupManager shared] groupSetting:groupNo settingKey:key on:on];
 }
+
+// 更新群管理设置
+-(void) updateGroupManagerSetting:(WKGroupSettingKey)key on:(BOOL)on groupNo:(NSString*)groupNo {
+    NSString *keyStr = [[WKGroupManager shared] getKeyString:key];
+    [[WKGroupManager shared] groupManagerSetting:groupNo key:keyStr value:@(on)];
+}
+
 // 更新用户设置-免打扰
 -(void) channel:(WKChannel*)channel mute:(BOOL) on {
     if(channel.channelType == WK_PERSON) {
@@ -31,8 +42,8 @@
     }else {
         [self updateGroupSetting:WKGroupSettingKeyMute on:on groupNo:channel.channelId];
     }
-    
 }
+
 // 设置-置顶
 -(void) channel:(WKChannel*)channel stick:(BOOL) on {
     if(channel.channelType == WK_PERSON) {
@@ -91,6 +102,27 @@
     }
 }
 
+
+-(void) group:(NSString*)groupNo viewMemberInfo:(BOOL) on {
+    [self updateGroupSetting:WKGroupSettingKeyAllowViewMemberInfo on:on groupNo:groupNo];
+}
+
+-(void) group:(NSString*)groupNo sendMemberCard:(BOOL) on {
+    [self updateGroupSetting:WKGroupSettingKeyAllowSendMemberCard on:on groupNo:groupNo];
+}
+
+-(void) group:(NSString*)groupNo revokeMessage:(BOOL) on {
+    [self updateGroupSetting:WKGroupSettingKeyAllowRevokeMessage on:on groupNo:groupNo];
+}
+
+-(void) group:(NSString*)groupNo membersVisible:(BOOL) on {
+    [self updateGroupSetting:WKGroupSettingKeyAllowMembersVisible on:on groupNo:groupNo];
+}
+
+-(void) group:(NSString*)groupNo quitRemind:(BOOL) on {
+    [self updateGroupSetting:WKGroupSettingKeyAllowMemberQuitRemind on:on groupNo:groupNo];
+}
+
 -(void) group:(NSString*)groupNo save:(BOOL) on {
     [self updateGroupSetting:WKGroupSettingKeySave on:on groupNo:groupNo];
 }
@@ -116,22 +148,6 @@
 //    __weak typeof(self) weakSelf = self;
    return [[WKAPIClient sharedClient] PUT:[NSString stringWithFormat:@"users/%@/setting",uid] parameters:settingDict].then(^{
         // TODO 更新用户设置服务器会发出 channelUpdate命令 所以这里无需再进行更新操作
-//        WKChannelInfo *channelInfo = [[WKSDK shared].channelManager getChannelInfo:[WKChannel personWithChannelID:uid]];
-//        if(channelInfo) {
-//            for (NSString *key in settingDict.allKeys) {
-//                NSNumber *value = settingDict[key];
-//                if([key isEqualToString:@"mute"]) {
-//                    channelInfo.mute = [value boolValue];
-//                }else if([key isEqualToString:@"top"]) {
-//                    channelInfo.stick = [value boolValue];
-//                }else if([key isEqualToString:@"receipt"]) {
-//                    channelInfo.receipt = [value boolValue];
-//                }else if([key isEqualToString:@"chat_pwd_on"]) {
-//                    [channelInfo setSettingValue:[value boolValue] forKey:WKChannelExtraKeyChatPwd];
-//                }
-//            }
-//            [[WKSDK shared].channelManager addOrUpdateChannelInfo:channelInfo];
-//        }
     }).catch(^(NSError *error){
         [[WKNavigationManager shared].topViewController.view showMsg:error.domain];
     });

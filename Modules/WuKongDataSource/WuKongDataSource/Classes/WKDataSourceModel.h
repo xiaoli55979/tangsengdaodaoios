@@ -30,6 +30,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) BOOL chatPwdOn; // 聊天密码开关
 @property(nonatomic,assign) BOOL allowViewHistoryMsg; //允许新成员查看历史消息
 @property(nonatomic,assign) long version; // 群版本号
+
+@property(nonatomic,assign) BOOL allowMemberPinnedMessage;    // 允许成员置顶消息
+@property(nonatomic,assign) BOOL allowMemberQuitRemind;       // 允许成员退出提醒
+@property(nonatomic,assign) BOOL allowMembersVisible;         // 允许成员可见性
+@property(nonatomic,assign) BOOL allowRevokeMessage;          // 允许撤回消息
+@property(nonatomic,assign) BOOL allowSendMemberCard;         // 允许发送成员卡片
+@property(nonatomic,assign) BOOL allowShowNick;               // 允许显示昵称
+@property(nonatomic,assign) BOOL allowViewMemberInfo;         // 允许查看成员信息
+
 @end
 
 @interface WKGroupMemberModel : WKModel
@@ -48,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) BOOL isDeleted; // 是否已删除
 @property(nonatomic,copy)   NSString *createdAt; // 创建时间
 @property(nonatomic,copy)  NSString *updatedAt; // 更新时间
-@property(nonatomic,assign) NSInteger forbiddenExpirTime; // 禁言过期时间（没被禁言为0）
+@property(nonatomic,assign) NSInteger forbiddenExpirTime; // 禁言过期时间（没被禁言为0 , -1永久）
 
 
 

@@ -70,18 +70,6 @@
     return items;
 }
 
-//-(NSArray<WKFormSection*>*) settingSections {
-//    if(!_settingSections) {
-//        if(self.channel.channelType == WK_GROUP) {
-//             _settingSections = [WKTableSectionUtil toSections:[self groupSettingItems]];
-//        }else {
-//             _settingSections = [WKTableSectionUtil toSections:[self personSettingItems]];
-//        }
-//       
-//    }
-//    return _settingSections;
-//}
-
 - (WKChannelMember *)memberOfMe {
     if(!_memberOfMe) {
         _memberOfMe = [[WKSDK shared].channelManager getMember:self.channel uid:[WKApp shared].loginInfo.uid];
@@ -244,7 +232,7 @@
                     @"class": hasNotice?WKMultiLabelItemModel.class:WKLabelItemModel.class,
                     @"label":LLang(@"群公告"),
                     @"value": hasNotice?self.channelInfo.notice:LLang(@"未设置"),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace": isCreatorOrManager?[NSNull null]:@(0.0f),
                     @"onClick":^{
                         if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(settingOnGroupNoticeClick:)]) {
@@ -269,7 +257,7 @@
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"我在本群的昵称"),
                     @"value":nameInGroup?:@"",
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"showTopLine":@(NO),
                     @"onClick":^{
                         if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(settingOnGroupNoticeClick:)]) {
@@ -327,7 +315,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"聊天密码"),
                     @"on":@(self.channelInfo?[self.channelInfo.extra[@"chat_pwd_on"] boolValue]:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
@@ -346,7 +334,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"消息回执"),
                     @"on":@(self.channelInfo?self.channelInfo.receipt:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] channel:self.channel receipt:on];
@@ -370,7 +358,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"是否显示昵称"),
                     @"on":@(self.channelInfo?self.channelInfo.showNick:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] group:self.channel.channelId nick:on];
@@ -393,7 +381,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"保存到通讯录"),
                     @"on":@(self.channelInfo?self.channelInfo.save:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] group:self.channel.channelId save:on];
@@ -419,7 +407,7 @@
                     @"class":WKLabelItemModel.class,
                     @"label":self.channelInfo && self.channelInfo.status == WKChannelStatusBlacklist?LLangW(@"拉出黑名单", weakSelf):LLangW(@"拉入黑名单", weakSelf),
                     @"value":@"",
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"showTopLine":@(NO),
                     @"onClick":^{
@@ -445,7 +433,7 @@
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"投诉"),
                     @"value":@"",
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"showTopLine":@(NO),
                     @"onClick":^{
@@ -466,7 +454,7 @@
                 @{
                     @"class":WKButtonItemModel.class,
                     @"title":LLang(@"清空聊天记录"),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"showTopLine":@(NO),
                     @"onClick":^{
@@ -503,13 +491,13 @@
                ]
         };
     } category:WKPOINT_CATEGORY_CHANNELSETTING sort:88700];
+
 }
 
 /// 群管理设置
 - (void)groupSettingList {
     
     __weak typeof(self) weakSelf = self;
-
     
     /// 群设置
     [[WKApp shared] setMethod:@"channelsetting.groupsetting" handler:^id _Nullable(id  _Nonnull param) {
@@ -529,12 +517,11 @@
         return  @{
             @"height":@(sectionHeight),
             @"items":@[
-
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"群成员禁言"),
                     @"on":@(self.channelInfo?self.channelInfo.forbidden:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] group:self.channel.channelId forbidden:on];
@@ -544,18 +531,17 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"群聊邀请确认"),
                     @"on":@(self.channelInfo?self.channelInfo.invite:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] group:self.channel.channelId invite:on];
                     }
                 },
-
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"截屏通知"),
                     @"on":@(self.channelInfo?[self.channelInfo.extra[@"screenshot"] boolValue]:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] channel:self.channel screenshot:on];
@@ -565,7 +551,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"撤回消息提醒"),
                     @"on":@(self.channelInfo?[self.channelInfo.extra[@"revoke_remind"] boolValue]:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] channel:self.channel revokeRemind:on];
@@ -575,7 +561,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"加群提醒"),
                     @"on":@(self.channelInfo?[self.channelInfo.extra[@"join_group_remind"] boolValue]:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] channel:self.channel joinGroupRemind:on];
@@ -585,7 +571,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"禁止添加好友"),
                     @"on":@(self.channelInfo?[self.channelInfo.extra[@"forbidden_add_friend"] boolValue]:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         [[WKChannelSettingManager shared] channel:self.channel forbiddenAddFriend:on];
@@ -596,7 +582,7 @@
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"阅后即焚"),
                     @"on":@(self.channelInfo?self.channelInfo.flame:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
                         if (on) {
@@ -613,18 +599,68 @@
                 },
                 @{
                     @"class":WKSwitchItemModel.class,
-                    @"label":LLang(@"是否允许查看历史消息"),
+                    @"label":LLang(@"允许查看历史消息"),
                     @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_view_history_msg"] boolValue]:false),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
-                        [[WKChannelSettingManager shared] channel:self.channel allowViewHistoryMsg:on];
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowViewHistoryMsg on:on groupNo:self.channel.channelId];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"退群提醒"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_member_quit_remind"] boolValue]:false),
+                    @"showBottomLine":@(YES),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowMemberQuitRemind on:on groupNo:self.channel.channelId];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"查看成员信息"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_view_member_info"] boolValue]:false),
+                    @"showBottomLine":@(YES),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowViewMemberInfo on:on groupNo:self.channel.channelId];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"群成员是否可见"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_members_visible"] boolValue]:false),
+                    @"showBottomLine":@(YES),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowMembersVisible on:on groupNo:self.channel.channelId];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"允许消息撤回"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_revoke_message"] boolValue]:false),
+                    @"showBottomLine":@(YES),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowRevokeMessage on:on groupNo:self.channel.channelId];
+                    }
+                },
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"允许发送名片"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_send_member_card"] boolValue]:false),
+                    @"showBottomLine":@(YES),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowSendMemberCard on:on groupNo:self.channel.channelId];
                     }
                 },
                 @{
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"添加群管理员"),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onClick":^{
                        if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(settingMember:)]) {
@@ -635,7 +671,7 @@
                 @{
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"删除群管理员"),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onClick":^{
                        if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(removeMember:)]) {
@@ -646,7 +682,7 @@
                 @{
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"转让群主身份"),
-                    @"showBottomLine":@(NO),
+                    @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onClick":^{
                        if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(changeGroupMember:)]) {

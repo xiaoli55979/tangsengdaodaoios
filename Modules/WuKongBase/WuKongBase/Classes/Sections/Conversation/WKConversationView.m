@@ -597,11 +597,11 @@
    
     
     NSInteger forbiddenExpirTime = [self.conversationVM.memberOfMe.extra[@"forbidden_expir_time"] integerValue];
-    if(on && forbiddenExpirTime>0) {
+    if(on && forbiddenExpirTime != 0) {
        
         NSInteger second = forbiddenExpirTime - [[NSDate date] timeIntervalSince1970];
         if(second<=0) {
-            [self setGroupForbidden:on title:LLang(@"禁言中")];
+            [self setGroupForbidden:on title:LLang(@"禁言中 (永久)")];
             return;
         }
         NSString *forbidderStr = [self getForbidderStr];
@@ -626,13 +626,14 @@
 -(NSString*) getForbidderStr {
     NSInteger forbiddenExpirTime = [self.conversationVM.memberOfMe.extra[@"forbidden_expir_time"] integerValue];
     NSInteger second = forbiddenExpirTime - [[NSDate date] timeIntervalSince1970];
-    if(second<=0) {
+    if(second==0) {
         return @"";
+    } else if (second == -1) {
+        return [NSString stringWithFormat:LLang(@"禁言中（永久）")];
     }
     
    NSString *timeStr =  [WKTimeTool formatCountdownTime:forbiddenExpirTime];
-    
-    return [NSString stringWithFormat:LLang(@"禁言中（%@）"),timeStr];
+   return [NSString stringWithFormat:LLang(@"禁言中（%@）"),timeStr];
 }
 
 -(BOOL) setGroupForbiddenIfNeed {
@@ -642,7 +643,7 @@
     }else {
         if(self.conversationVM.channelInfo) {
             NSInteger forbiddenExpirTime =  self.conversationVM.forbiddenExpirTime;
-            BOOL forbidden = self.conversationVM.channelInfo.forbidden || forbiddenExpirTime > 0;
+            BOOL forbidden = self.conversationVM.channelInfo.forbidden || forbiddenExpirTime != 0;
             [self setGroupForbidden:forbidden];
             return true;
         }

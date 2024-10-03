@@ -242,12 +242,12 @@
                     @{
                         @"class":WKCountdownFormItemModel.class,
                         @"label":LLangW(@"群内禁言", weakSelf),
-                        @"value": forbiddenExpirTime>0?LLang(@"禁言中"):@"",
+                        @"value": forbiddenExpirTime != 0?LLang(@"禁言中"):@"",
                         @"second":@(forbiddenExpirTime),
                         @"onClick":^{
                             
                             WKChannelMember *member = [[WKSDK shared].channelManager getMember:weakSelf.fromChannel uid:uid];
-                            if(member && member.extra[@"forbidden_expir_time"] && [member.extra[@"forbidden_expir_time"] intValue]>0) {
+                            if(member && member.extra[@"forbidden_expir_time"] && [member.extra[@"forbidden_expir_time"] intValue] != 0) {
                                 WKActionSheetView2 *sheet = [WKActionSheetView2 initWithTip:nil];
                                 [sheet addItem:[WKActionSheetButtonItem2 initWithTitle:LLangW(@"解除禁言", weakSelf) onClick:^{
                                     UIView *topView = [WKNavigationManager shared].topViewController.view;

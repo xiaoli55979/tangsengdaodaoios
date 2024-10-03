@@ -277,6 +277,14 @@ FOUNDATION_EXPORT WKChannelExtraKey const _Nullable  WKChannelExtraKeySource; //
 FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyVercode; // 加好友验证码
 
 FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowViewHistoryMsg; // 允许新成员查看群历史消息
+FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowMemberPinnedMessage; // 允许新成员查看群历史消息
+FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowMemberQuitRemind; // 允许新成员查看群历史消息
+FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowMembersVisible; // 允许新成员查看群历史消息
+FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowRevokeMessage; // 允许新成员查看群历史消息
+FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowSendMemberCard; // 允许新成员查看群历史消息
+FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowShowNick; // 允许新成员查看群历史消息
+FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyAllowViewMemberInfo; // 允许新成员查看群历史消息
+
 
 FOUNDATION_EXPORT WKChannelExtraKey const _Nullable WKChannelExtraKeyRemark; // 备注
 

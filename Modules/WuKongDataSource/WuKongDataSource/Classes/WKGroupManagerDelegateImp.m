@@ -166,7 +166,14 @@
     [channelInfo setSettingValue:groupModel.revokeRemind forKey:WKChannelExtraKeyRevokeRemind];
     [channelInfo setSettingValue:groupModel.chatPwdOn forKey:WKChannelExtraKeyChatPwd];
     [channelInfo setSettingValue:groupModel.allowViewHistoryMsg forKey:WKChannelExtraKeyAllowViewHistoryMsg];
-    
+    [channelInfo setSettingValue:groupModel.allowMemberPinnedMessage forKey:WKChannelExtraKeyAllowMemberPinnedMessage];
+    [channelInfo setSettingValue:groupModel.allowMemberQuitRemind forKey:WKChannelExtraKeyAllowMemberQuitRemind];
+    [channelInfo setSettingValue:groupModel.allowMembersVisible forKey:WKChannelExtraKeyAllowMembersVisible];
+    [channelInfo setSettingValue:groupModel.allowRevokeMessage forKey:WKChannelExtraKeyRevokeRemind];
+    [channelInfo setSettingValue:groupModel.allowSendMemberCard forKey:WKChannelExtraKeyAllowSendMemberCard];
+    [channelInfo setSettingValue:groupModel.allowShowNick forKey:WKChannelExtraKeyAllowShowNick];
+    [channelInfo setSettingValue:groupModel.allowViewMemberInfo forKey:WKChannelExtraKeyAllowViewMemberInfo];
+
     [[WKSDK shared].channelManager addOrUpdateChannelInfo:channelInfo];
 }
 
@@ -208,55 +215,8 @@
 }
 
 
-
 - (void)groupManagerSetting:(nonnull WKGroupManager *)manager groupNo:(nonnull NSString *)groupNo settingKey:(WKGroupSettingKey)key on:(BOOL)on {
-    NSString *keyStr = @"";
-    switch (key) {
-        case WKGroupSettingKeyMute:
-            keyStr = @"mute";
-            break;
-        case WKGroupSettingKeyStick:
-            keyStr = @"top";
-            break;
-        case WKGroupSettingKeySave:
-            keyStr = @"save";
-            break;
-        case WKGroupSettingKeyShowNick:
-            keyStr = @"show_nick";
-            break;
-        case WKGroupSettingKeyInvite:
-            keyStr = @"invite";
-            break;
-        case WKGroupSettingKeyForbidden:
-            keyStr = @"forbidden";
-            break;
-        case WKGroupSettingKeyForbiddenAddFriend:
-            keyStr = @"forbidden_add_friend";
-            break;
-        case WKGroupSettingKeyScreenshot:
-            keyStr = @"screenshot";
-            break;
-        case WKGroupSettingKeyRevokeRemind:
-            keyStr = @"revoke_remind";
-            break;
-        case WKGroupSettingKeyJoinGroupRemind:
-            keyStr = @"join_group_remind";
-            break;
-        case WKGroupSettingKeyChatPwdOn:
-            keyStr = @"chat_pwd_on";
-            break;
-        case WKGroupSettingKeyReceipt:
-            keyStr = @"receipt";
-            break;
-        case WKGroupSettingKeyAllowViewHistoryMsg:
-            keyStr = @"allow_view_history_msg";
-            break;
-        case WKGroupSettingKeyFlame:
-            keyStr = @"flame";
-            break;
-        default:
-            break;
-    }
+    NSString *keyStr = [[WKGroupManager shared] getKeyString:key];
     if([keyStr isEqualToString:@""]) {
         NSLog(@"key不能为空！");
         return;
@@ -270,36 +230,6 @@
     [settingDict setObject:value forKey:key];
     
     [[WKAPIClient sharedClient] PUT:[NSString stringWithFormat:@"groups/%@/setting",groupNo] parameters:settingDict].then(^{
-//        if(settingDict[@"top"]) {
-//            settingDict[@"stick"] = settingDict[@"top"];
-//        }
-//        WKChannel *channel = [[WKChannel alloc] initWith:groupNo channelType:WK_GROUP];
-//        WKChannelInfo *channelInfo =  [[WKSDK shared].channelManager getChannelInfo:channel];
-//        if(channelInfo) {
-//            for (NSString *key in settingDict.allKeys) {
-//                if([key isEqualToString:@"mute"]) { // 免打扰
-//                    channelInfo.mute = [settingDict[key] boolValue];
-//                }else if([key isEqualToString:@"stick"]) { // 置顶
-//                    channelInfo.stick = [settingDict[key] boolValue];
-//                } else if([key isEqualToString:@"show_nick"]) { // 置顶
-//                    channelInfo.showNick = [settingDict[key] boolValue];
-//                } else if([key isEqualToString:@"save"]) { // 保存
-//                    channelInfo.save = [settingDict[key] boolValue];
-//                } else if([key isEqualToString:@"invite"]) { // 确认邀请
-//                    channelInfo.invite = [settingDict[key] boolValue];
-//                }else if([key isEqualToString:@"forbidden"]) { // 禁言
-//                    channelInfo.forbidden = [settingDict[key] boolValue];
-//                }else if([key isEqualToString:@"receipt"]) { // 消息回执
-//                    channelInfo.receipt = [settingDict[key] boolValue];
-//                }else if([key isEqualToString:@"flame"]) { // 阅后即焚
-//                    channelInfo.flame = [settingDict[key] boolValue];
-//                }else {
-//                    channelInfo.extra[key] = settingDict[key];
-//                }
-//            }
-//            [[WKSDK shared].channelManager updateChannelInfo:channelInfo];
-//        }
-        
     });
 }
 
@@ -316,7 +246,7 @@
  
 }
 
-- (void)groupManagerUpdate:(nonnull WKGroupManager *)manager groupNo:(nonnull NSString *)groupNo attrKey:(nonnull NSString *)attrKey attrValue:(nonnull NSString *)attrValue complete:(nonnull void (^)(NSError * _Nullable))complete {
+- (void)groupManagerUpdate:(nonnull WKGroupManager *)manager groupNo:(nonnull NSString *)groupNo attrKey:(NSString *)attrKey attrValue:(nonnull NSString *)attrValue complete:(nonnull void (^)(NSError * _Nullable))complete {
     [[WKAPIClient sharedClient] PUT:[NSString stringWithFormat:@"groups/%@",groupNo] parameters:@{attrKey:attrValue}].then(^{
         if(complete) {
             complete(nil);

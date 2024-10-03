@@ -30,6 +30,14 @@
     groupModel.invite = dictory[@"invite"]?[dictory[@"invite"] boolValue]:false;
     groupModel.chatPwdOn = dictory[@"chat_pwd_on"]?[dictory[@"chat_pwd_on"] boolValue]:false;
     groupModel.allowViewHistoryMsg = dictory[@"allow_view_history_msg"]?[dictory[@"allow_view_history_msg"] boolValue]:false;
+    groupModel.allowMemberPinnedMessage = dictory[@"allow_member_pinned_message"]?[dictory[@"allow_member_pinned_message"] boolValue]:false;
+    groupModel.allowMemberQuitRemind = dictory[@"allow_member_quit_remind"]?[dictory[@"allow_member_quit_remind"] boolValue]:false;
+    groupModel.allowMembersVisible = dictory[@"allow_members_visible"]?[dictory[@"allow_members_visible"] boolValue]:false;
+    groupModel.allowRevokeMessage = dictory[@"allow_revoke_message"]?[dictory[@"allow_revoke_message"] boolValue]:false;
+    groupModel.allowSendMemberCard = dictory[@"allow_send_member_card"]?[dictory[@"allow_send_member_card"] boolValue]:false;
+    groupModel.allowShowNick = dictory[@"allow_show_nick"]?[dictory[@"allow_show_nick"] boolValue]:false;
+    groupModel.allowViewMemberInfo = dictory[@"allow_view_member_info"]?[dictory[@"allow_view_member_info"] boolValue]:false;
+
     groupModel.receipt =  dictory[@"receipt"]?[dictory[@"receipt"] boolValue]:false;
     if(dictory[@"version"]) {
         groupModel.version = [dictory[@"version"] longValue];
@@ -95,7 +103,7 @@
     if(self.inviteUID) {
         channelMember.extra[@"invite_uid"] = self.inviteUID;
     }
-    if(self.forbiddenExpirTime>0) {
+    if(self.forbiddenExpirTime!=0) {
         channelMember.extra[@"forbidden_expir_time"] = @(self.forbiddenExpirTime);
     }
     

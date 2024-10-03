@@ -8,12 +8,15 @@
 #import <Foundation/Foundation.h>
 #import <WuKongIMSDK/WuKongIMSDK.h>
 #import <PromiseKit/PromiseKit.h>
+#import "WKGroupManager.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WKChannelSettingManager : NSObject
 
 + (instancetype _Nonnull )shared;
 
+-(void) updateGroupManagerSetting:(WKGroupSettingKey)key on:(BOOL)on groupNo:(NSString*)groupNo;
 // 免打扰
 -(void) channel:(WKChannel*)channel mute:(BOOL) on;
 -(BOOL) mute:(WKChannel*)channel;
@@ -65,6 +68,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// 禁止邀请好友
 -(void) group:(NSString*)groupNo invite:(BOOL) on;
 -(BOOL) invite:(WKChannel*)channel;
+
+-(void) group:(NSString*)groupNo viewMemberInfo:(BOOL) on;
+
+-(void) group:(NSString*)groupNo sendMemberCard:(BOOL) on;
+
+-(void) group:(NSString*)groupNo revokeMessage:(BOOL) on;
+
+-(void) group:(NSString*)groupNo membersVisible:(BOOL) on;
+
+-(void) group:(NSString*)groupNo quitRemind:(BOOL) on;
 
 /// 焚烧模式
 -(void) group:(NSString*)groupNo flame:(BOOL) on;
