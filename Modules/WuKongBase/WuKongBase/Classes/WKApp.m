@@ -1347,14 +1347,22 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
     // 个人资料
     [self setMethod:WKPOINT_USER_INFO handler:^id _Nullable(id  _Nonnull param) {
         NSString *uid = param[@"uid"];
-//        if([uid isEqualToString:[WKApp shared].loginInfo.uid]) {
-//            [[WKNavigationManager shared] pushViewController:[WKMeInfoVC new] animated:YES];
-//            return nil;
-//        }
+
+        WKChannel *fromChannel = param[@"channel"];
+        /// 获取群信息
+        WKChannelInfo *channelInfo = [[WKSDK shared].channelManager getChannelInfo:fromChannel];
+        /// 获取成员信息
+        WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:fromChannel uid:[WKApp shared].loginInfo.uid];
+        BOOL status = [channelInfo.extra[@"allow_members_visible"] boolValue];
+        if (channelInfo.extra[@"allow_members_visible"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
+            [WKAlertUtil alert:LLangW(@"当前无权限",weakSelf)];
+            return nil;
+        }
+        
         WKUserInfoVC *vc = [WKUserInfoVC new];
         vc.uid = uid;
         vc.vercode = param[@"vercode"]?:@"";
-        vc.fromChannel = param[@"channel"];
+        vc.fromChannel = fromChannel;
         [[WKNavigationManager shared] pushViewController:vc animated:YES];
         return nil;
     }];

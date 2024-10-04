@@ -94,30 +94,6 @@
     
 }
 
-- (void)reflashPainal {
-    /// 更新卡片管理
-    // card
-    [[WKApp shared] setMethod:WKPOINT_CATEGORY_PANELFUNCITEM_CARD handler:^id _Nullable(id  _Nonnull param) {
-        WKPanelCardFuncItem *item = [[WKPanelCardFuncItem alloc] init];
-        item.sort = 5000;
-        if(self.channel.channelType != WK_GROUP) {
-            return item;
-        }
-
-        /// 管理员或者创建者不处理
-        WKMemberRole groupType =  self.conversationView.conversationVM.memberRole;
-        if (groupType == WKMemberRoleCreator || groupType == WKMemberRoleManager) {
-            return item;
-        }
-        
-        BOOL status = [self.channelInfo.extra[@"allow_send_member_card"] boolValue];
-        if (status) {
-            return item;
-        }
-        return nil;
-    } category:WKPOINT_CATEGORY_PANELFUNCITEM];
-}
-
 
 -(void) addDelegates {
     [[WKSDK shared].channelManager addDelegate:self]; // 频道数据监听
@@ -164,9 +140,6 @@
         lim_dispatch_main_async_safe(^{
             [weakSelf channelInfoLoadFinished];
         })
-        
-        /// 更新面板状态
-        [self reflashPainal];
     }else {
         needFetch = true;
     }
@@ -411,9 +384,6 @@
 -(void) channelInfoUpdate:(WKChannelInfo*)channelInfo oldChannelInfo:(WKChannelInfo * _Nullable)oldChannelInfo {
     if([self.channel isEqual:channelInfo.channel]) { // 更新的当前会话的信息
         self.channelInfo = channelInfo;
-        /// 更新底部功能
-        [self reflashPainal];
-        
         self.conversationView.conversationVM.channelInfo = self.channelInfo;
         [self channelInfoLoadFinished];
         

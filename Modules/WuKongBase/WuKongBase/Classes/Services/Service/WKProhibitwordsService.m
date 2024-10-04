@@ -111,51 +111,70 @@ static WKProhibitwordsService *_instance = nil;
       
 - (NSString *)filter:(NSString *)message replaceKey:(NSString *)replaceKey {
     replaceKey = replaceKey == nil ? @"*" : replaceKey;
-
+    
     NSMutableArray *retArray = [[NSMutableArray alloc] init];
     NSInteger start = 0;
-
+    
     while (start < message.length) {
-        NSMutableDictionary *level = self.keywordChains.mutableCopy;
+        NSMutableDictionary *level = self.keywordChains;
         NSInteger step_ins = 0;
         BOOL matched = NO;
-
+        BOOL partialMatched = NO;  // 部分匹配标志
+        
+        // 处理剩余的消息字符
         NSString *message_chars = [message substringWithRange:NSMakeRange(start, message.length - start)];
+        
         for (int i = 0; i < message_chars.length; i++) {
-            NSString *chars_i = [message_chars substringWithRange:NSMakeRange(i, 1)];
-            if ([level.allKeys containsObject:chars_i]) {
+            NSString *chars_i = [[message_chars substringWithRange:NSMakeRange(i, 1)] lowercaseString];  // 不区分大小写
+            
+            if (level[chars_i]) {
                 step_ins += 1;
                 NSDictionary *level_char_dict = level[chars_i];
-
-                if ([level_char_dict.allKeys containsObject:self.delimit]) {
-                    // 敏感词完全匹配
-                    NSMutableString *ret_str = [[NSMutableString alloc] init];
+                
+                // 完全匹配到敏感词
+                if (level_char_dict[self.delimit]) {
+                    NSMutableString *ret_str = [NSMutableString stringWithCapacity:step_ins];
                     for (int j = 0; j < step_ins; j++) {
                         [ret_str appendString:replaceKey];
                     }
                     [retArray addObject:ret_str];
-                    start += step_ins - 1;
+                    start += step_ins - 1;  // 匹配到敏感词，跳过这些字符
                     matched = YES;
                     break;
                 } else {
-                    level = level_char_dict.mutableCopy;
+                    level = level_char_dict;  // 更新到下一级字典
+                }
+
+                // 部分匹配：至少连续匹配到 2 个字符
+                if (step_ins >= 2) {
+                    partialMatched = YES;
                 }
             } else {
-                // 当前字符没有匹配到敏感词，直接保留当前字符
+                // 当前字符没有匹配到敏感词，退出循环
                 break;
             }
         }
-
-        if (!matched) {
-            // 如果没有匹配到敏感词，保留原始字符
+        
+        if (!matched && partialMatched) {
+            // 部分匹配到两个或更多字符，进行替换
+            NSMutableString *ret_str = [NSMutableString stringWithCapacity:step_ins];
+            for (int j = 0; j < step_ins; j++) {
+                [ret_str appendString:replaceKey];
+            }
+            [retArray addObject:ret_str];
+            start += step_ins - 1;  // 跳过已替换的部分
+        } else if (!matched) {
+            // 没有匹配到任何敏感词，保留原始字符
             [retArray addObject:[NSString stringWithFormat:@"%C", [message characterAtIndex:start]]];
         }
-
+        
         start++;
     }
-
+    
     return [retArray componentsJoinedByString:@""];
 }
+
+
 
 
 - (NSMutableDictionary *)keywordChains{
