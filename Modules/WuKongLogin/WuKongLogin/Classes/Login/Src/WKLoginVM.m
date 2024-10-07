@@ -46,8 +46,8 @@
 @implementation WKLoginVM
 
 -(AnyPromise*) login:(NSString*) username password:(NSString*)password {
-    
-    return  [[WKAPIClient sharedClient] POST:@"user/login" parameters:@{@"username":username,@"password":password,@"device":@{@"device_id":[UIDevice getUUID],@"device_name":[UIDevice getDeviceName],@"device_model":[UIDevice getDeviceModel]}} model:WKLoginResp.class];
+    NSString *lang = [WKApp shared].config.langue;
+    return  [[WKAPIClient sharedClient] POST:@"user/login" parameters:@{@"username":username,@"password":password,@"lang":lang,@"device":@{@"device_id":[UIDevice getUUID],@"device_name":[UIDevice getDeviceName],@"device_model":[UIDevice getDeviceModel]}} model:WKLoginResp.class];
    
 }
 

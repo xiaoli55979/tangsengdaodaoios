@@ -21,7 +21,7 @@
                     @{
                         @"class":WKLabelItemSelectModel.class,
                         @"label":@"简体中文",
-                        @"selected":@([langue isEqualToString:@"zh-Hans"]),
+                        @"selected":@([langue containsString:@"zh-Hans"]),
                         @"onClick":^{
                             [WKApp shared].config.langue = @"zh-Hans";
                             [weakSelf reloadData];

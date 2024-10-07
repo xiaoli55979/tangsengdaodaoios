@@ -191,7 +191,11 @@
 
 - (void)setMemberCount:(NSInteger)memberCount {
     if(self.channelInfo && self.channelInfo.channel.channelType != WK_PERSON && self.channelInfo.channel.channelType != WK_CustomerService) {
-        self.subtitleLbl.text = [NSString stringWithFormat:LLang(@"%ld个成员"),memberCount];
+        
+        WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:self.channelInfo.channel uid:[WKApp shared].loginInfo.uid];
+        if (memberOfMy.role != WKMemberRoleCommon) {
+            self.subtitleLbl.text = [NSString stringWithFormat:LLang(@"%ld个成员"),memberCount];
+        }
     }
     [self.subtitleLbl sizeToFit];
     

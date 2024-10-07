@@ -58,8 +58,15 @@ static WKPhotoBrowser *_instance;
 }
 
 -(void) showPreviewWithSender:(UIViewController*)vc  selectCompressImageBlock:(void(^)(NSArray<NSData *>* _Nonnull images,NSArray<PHAsset *> * _Nonnull assets, BOOL isOriginal))selectImageBlock allowSelectVideo:(BOOL)allowSelectVideo{
-    [ZLPhotoConfiguration default].saveNewImageAfterEdit = NO;
-    [ZLPhotoConfiguration default].maxSelectCount = 9;
+    ZLPhotoConfiguration *config = [ZLPhotoConfiguration default];
+    config.saveNewImageAfterEdit = NO;
+    config.maxSelectCount = 9;
+    config.allowSelectVideo = allowSelectVideo;
+    config.maxVideoSelectCount = 1;
+    config.maxSelectVideoDuration = 60;
+    config.minVideoSelectCount = 0;
+    config.minSelectVideoDuration = 0;
+
     [self showWithSender:vc selectCompressImageBlock:selectImageBlock allowSelectVideo:allowSelectVideo preview:YES];
     
 }

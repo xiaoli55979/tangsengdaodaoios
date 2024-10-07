@@ -1082,6 +1082,7 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
         return item;
     } category:WKPOINT_CATEGORY_PANELFUNCITEM];
     
+    
     // @
     [self setMethod:WKPOINT_CATEGORY_PANELFUNCITEM_MENTION handler:^id _Nullable(id  _Nonnull param) {
         id<WKConversationContext> context = param[@"context"];
@@ -1414,20 +1415,7 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
     } category:WKPOINT_CATEGORY_SCAN_HANDLER];
     
     // ---------- 最近会话列表的+  ----------
-    
-    [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
-        return [WKConversationAddItem title:LLangW(@"添加朋友", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/FriendAdd"] onClick:^{
-            [[WKApp shared] invoke:WKPOINT_CONVERSATION_ADDCONTACTS param:nil];
-        }];
-    } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
-    
-    [self setMethod:WKPOINT_CONVERSATION_ADD_SCAN handler:^id _Nullable(id  _Nonnull param) {
-        return [WKConversationAddItem title:LLangW(@"扫一扫", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/Scan"] onClick:^{
-            [[WKApp shared] invoke:WKPOINT_CONVERSATION_SCAN param:nil];
-        }];
-    } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:7000];
-    
-    
+
     // ---------- 我的  ----------
     // PC端
     [self setMethod:WKPOINT_ME_WEB handler:^id _Nullable(id  _Nonnull param) {
@@ -1523,10 +1511,35 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
                 [[WKApp shared] invoke:WKPOINT_CONVERSATION_STARTCHAT param:nil];
             }];
         } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:9000];
+        
+        
+        [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
+            return [WKConversationAddItem title:LLangW(@"添加朋友", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/FriendAdd"] onClick:^{
+                [[WKApp shared] invoke:WKPOINT_CONVERSATION_ADDCONTACTS param:nil];
+            }];
+        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
+        
+        [self setMethod:WKPOINT_CONVERSATION_ADD_SCAN handler:^id _Nullable(id  _Nonnull param) {
+            return [WKConversationAddItem title:LLangW(@"扫一扫", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/Scan"] onClick:^{
+                [[WKApp shared] invoke:WKPOINT_CONVERSATION_SCAN param:nil];
+            }];
+        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:7000];
+        
+        
+        
     } else {
         [self setMethod:WKPOINT_CONVERSATION_ADD_STARTCHAT handler:^id _Nullable(id  _Nonnull param) {
             return nil;
         } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:9000];
+        
+        [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
+            return nil;
+        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
+        
+        [self setMethod:WKPOINT_CONVERSATION_ADD_SCAN handler:^id _Nullable(id  _Nonnull param) {
+            return nil;
+        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:7000];
+        
     }
 
 }

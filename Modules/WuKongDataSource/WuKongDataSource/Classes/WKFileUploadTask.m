@@ -52,11 +52,11 @@
     
     
 }
+
 // 获取上传地址
 -(AnyPromise*) getUploadURL:(NSString*)path{
     return  [[WKAPIClient sharedClient] GET:[NSString stringWithFormat:@"%@file/upload?path=%@&type=chat",[WKApp shared].config.fileBaseUrl,path] parameters:nil];
 }
-
 
 
 // 创建和添加下载上传任务

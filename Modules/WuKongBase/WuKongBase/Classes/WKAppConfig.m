@@ -366,15 +366,28 @@
 //    tk-TM 土耳其语  ky-KG 柯尔克孜 ug 维吾尔语
 //    it-CH 意大利语简称
 - (NSString *)langue {
-    if(!_innerLangue) {
+    if (!_innerLangue) {
+        // 获取存储的语言
         NSString *lang = [[NSUserDefaults standardUserDefaults] objectForKey:@"lim_langue"];
-        if(!lang || [lang isEqualToString:@""]) {
-            return @"zh-Hans";
+        
+        // 如果存储的语言为空，则获取当前系统的语言
+        if (!lang || [lang isEqualToString:@""]) {
+            // 获取当前系统语言
+            lang = [[NSLocale preferredLanguages] firstObject];
+            
+            // 查找最后一个 "-" 的位置
+            NSRange range = [lang rangeOfString:@"-" options:NSBackwardsSearch];
+            if (range.location != NSNotFound) {
+                // 截取最后一个 "-" 之前的部分
+                lang = [lang substringToIndex:range.location];
+            }
         }
+        
         _innerLangue = lang;
     }
     return _innerLangue;
 }
+
 
 - (void)setLangue:(NSString *)langue {
     BOOL needNotify = false;

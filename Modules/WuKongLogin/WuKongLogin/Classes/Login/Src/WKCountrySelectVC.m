@@ -24,8 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = LLang(@"选择国家和地区");
-    
     [self.view addSubview:self.searchBar];
     [self.view addSubview:self.tableView];
     
@@ -34,6 +32,10 @@
     [self requestCountriesAndRefreshData];
     self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:self.closeView];
    
+}
+
+- (NSString *)langTitle {
+    return LLang(@"选择国家和地区");;
 }
 
 

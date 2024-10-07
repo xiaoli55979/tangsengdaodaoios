@@ -22,6 +22,7 @@
 #import "WKGroupAvatarVC.h"
 #import "WKGroupAvatarCell.h"
 #import "InputDialog.h"
+#import "WKConversationPasswordVC.h"
 
 @interface WKConversationSettingVM ()<WKChannelManagerDelegate>
 
@@ -318,7 +319,22 @@
                     @"showBottomLine":@(YES),
                     @"bottomLeftSpace":@(0.0f),
                     @"onSwitch":^(BOOL on){
-                        [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
+                        if (on) {
+                            NSString *chatPwd = [WKApp shared].loginInfo.extra[@"chat_pwd"];
+                            if(self.channelInfo && chatPwd && ![chatPwd isEqualToString:@""]) {
+                                [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
+                            } else {
+                                WKConversationPasswordVC *vc = [WKConversationPasswordVC new];
+                                vc.onFinish = ^{
+                                       if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(settingOnChannelUpdate:)]) {
+                                           [weakSelf.delegate settingOnChannelUpdate:weakSelf];
+                                       }
+                                };
+                                [[WKNavigationManager shared] pushViewController:vc animated:YES];
+                            }
+                        } else {
+                            [[WKChannelSettingManager shared] channel:self.channel chatPwdOn:on];
+                        }
                     }
                 },
                ]
@@ -499,8 +515,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    /// 群设置
-    [[WKApp shared] setMethod:@"channelsetting.groupsetting" handler:^id _Nullable(id  _Nonnull param) {
+    [[WKApp shared] setMethod:@"channelsetting.forbidden" handler:^id _Nullable(id  _Nonnull param) {
         /// 只有管理员和创建者可以设置
         if (![self isManagerOrCreatorForMe]) {
             return nil;
@@ -515,7 +530,7 @@
             sectionHeight = WKSectionHeight.floatValue;
         }
         return  @{
-            @"height":@(sectionHeight),
+            @"height":@(0.0f),
             @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
@@ -527,6 +542,27 @@
                         [[WKChannelSettingManager shared] group:self.channel.channelId forbidden:on];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89354];
+    
+    [[WKApp shared] setMethod:@"channelsetting.invite" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"群聊邀请确认"),
@@ -537,6 +573,27 @@
                         [[WKChannelSettingManager shared] group:self.channel.channelId invite:on];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89353];
+    
+    [[WKApp shared] setMethod:@"channelsetting.screenshot" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"截屏通知"),
@@ -547,6 +604,27 @@
                         [[WKChannelSettingManager shared] channel:self.channel screenshot:on];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89352];
+    
+    [[WKApp shared] setMethod:@"channelsetting.revoke_remind" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"撤回消息提醒"),
@@ -557,6 +635,27 @@
                         [[WKChannelSettingManager shared] channel:self.channel revokeRemind:on];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89350];
+    
+    [[WKApp shared] setMethod:@"channelsetting.join_group_remind" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"加群提醒"),
@@ -567,6 +666,28 @@
                         [[WKChannelSettingManager shared] channel:self.channel joinGroupRemind:on];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89349];
+    
+    
+    [[WKApp shared] setMethod:@"channelsetting.forbidden_add_friend" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"禁止添加好友"),
@@ -577,7 +698,27 @@
                         [[WKChannelSettingManager shared] channel:self.channel forbiddenAddFriend:on];
                     }
                 },
-
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89348];
+    
+    [[WKApp shared] setMethod:@"channelsetting.flame" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"阅后即焚"),
@@ -597,6 +738,27 @@
                         [[WKChannelSettingManager shared] channel:self.channel flame:on];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89347];
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_view_history_msg" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"允许查看历史消息"),
@@ -607,6 +769,28 @@
                         [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowViewHistoryMsg on:on groupNo:self.channel.channelId];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89346];
+    
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_member_quit_remind" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"退群提醒"),
@@ -617,6 +801,27 @@
                         [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowMemberQuitRemind on:on groupNo:self.channel.channelId];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89345];
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_view_member_info" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"查看成员信息"),
@@ -627,6 +832,27 @@
                         [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowViewMemberInfo on:on groupNo:self.channel.channelId];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89344];
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_members_visible" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"群成员是否可见"),
@@ -637,6 +863,59 @@
                         [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowMembersVisible on:on groupNo:self.channel.channelId];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89343];
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_members_visible" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"群成员是否可见"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_members_visible"] boolValue]:false),
+                    @"showBottomLine":@(YES),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowMembersVisible on:on groupNo:self.channel.channelId];
+                    }
+                },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89342];
+    
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_revoke_message" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"允许消息撤回"),
@@ -647,6 +926,27 @@
                         [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowRevokeMessage on:on groupNo:self.channel.channelId];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89341];
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_send_member_card" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKSwitchItemModel.class,
                     @"label":LLang(@"允许发送名片"),
@@ -657,6 +957,27 @@
                         [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowSendMemberCard on:on groupNo:self.channel.channelId];
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89340];
+    
+    [[WKApp shared] setMethod:@"channelsetting.addgroupmanager" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"添加群管理员"),
@@ -668,6 +989,27 @@
                        }
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89339];
+    
+    [[WKApp shared] setMethod:@"channelsetting.delgroupmanager" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"删除群管理员"),
@@ -679,6 +1021,27 @@
                        }
                     }
                 },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89338];
+    
+    [[WKApp shared] setMethod:@"channelsetting.transfergroupmanager" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
                 @{
                     @"class":WKLabelItemModel.class,
                     @"label":LLang(@"转让群主身份"),
@@ -691,10 +1054,8 @@
                     }
                 },
                ]
-
         };
-    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89355];
-
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89337];
 }
 
 

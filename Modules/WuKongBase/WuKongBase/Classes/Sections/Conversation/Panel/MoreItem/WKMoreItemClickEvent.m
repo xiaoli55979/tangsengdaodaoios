@@ -158,7 +158,8 @@ static WKMoreItemClickEvent *_instance;
             }
         }
        
-    } allowSelectVideo:[[WKApp shared] hasMethod:WKPOINT_SEND_VIDEO]];
+    } allowSelectVideo:NO];
+    /// 视频支持
    
 }
 
@@ -237,6 +238,15 @@ static WKMoreItemClickEvent *_instance;
              self.pickerC = [[UIImagePickerController alloc] init];
              self.pickerC.sourceType = UIImagePickerControllerSourceTypeCamera;
              self.pickerC.delegate = self;
+             // 设置媒体类型为图片和视频
+             self.pickerC.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+
+             // 设置视频录制最大时长（可选）
+             self.pickerC.videoMaximumDuration = 60.0; // 单位是秒
+
+             // 设置视频的质量（可选）
+             self.pickerC.videoQuality = UIImagePickerControllerQualityTypeHigh;
+
              [[[WKNavigationManager shared] topViewController] presentViewController:self.pickerC animated:YES completion:nil];
          });
      }];

@@ -49,6 +49,12 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
 @property(nonatomic,strong) UITextField *passwordTextField; // 密码输入
 @property(nonatomic,strong) UIButton *eyeBtn; // 眼睛关闭
 
+// ---------- 昵称输入相关 ----------
+@property(nonatomic,strong) UIView *nickBoxView; // 昵称输入的box view
+@property(nonatomic,strong) UIView *nickBottomLineView; // 昵称底部输入线
+@property(nonatomic,strong) UITextField *nickTextField; // 昵称输入
+
+
 // ---------- 邀请码相关 ----------
 
 @property(nonatomic,strong) UIView *inviteCodeBoxView; // 邀请码box view
@@ -102,6 +108,10 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
     [self.passwordBoxView addSubview:self.passwordTextField];
     [self.passwordBoxView addSubview:self.eyeBtn];
     
+    [self.view addSubview:self.nickBoxView];
+    [self.nickBoxView addSubview:self.nickBottomLineView];
+    [self.nickBoxView addSubview:self.nickTextField];
+    
     [self.view addSubview:self.inviteCodeBoxView];
     [self.inviteCodeBoxView addSubview:self.inviteCodeBottomLineView];
     [self.inviteCodeBoxView addSubview:self.inviteCodeTextField];
@@ -120,6 +130,7 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+    NSLog(@"touchesBegan");
 }
 
 
@@ -143,8 +154,8 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
     }
     return _titleLbl;
 }
-// ---------- 手机号输入 ----------
 
+// ---------- 手机号输入 ----------
 - (UIView *)mobileBoxView {
     if(!_mobileBoxView) {
         _mobileBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, 190.0f, WKScreenWidth, 40.0f)];
@@ -181,6 +192,7 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
     return _countrySpliteLineView;
 }
 
+
 -(UITextField*) mobileTextField {
     if(!_mobileTextField) {
         CGFloat left =self.countrySpliteLineView.lim_right+20.0f;
@@ -202,7 +214,6 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
 }
 
 // ---------- 短信验证码相关 ----------
-
 - (UIView *)codeBoxView {
     if(!_codeBoxView) {
         _codeBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, self.mobileBoxView.lim_bottom+20.0f, WKScreenWidth, self.mobileBoxView.lim_height)];
@@ -267,13 +278,41 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
     if(!_passwordTextField) {
         _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(20.0f, self.mobileBoxView.lim_height/2.0f - 20.0f, WKScreenWidth-20*2 - 32.0f, 40.0f)];
         [_passwordTextField setPlaceholder:LLang(@"请输入登录密码")];
-        _passwordTextField.returnKeyType = UIReturnKeyDone;
+        _passwordTextField.returnKeyType = UIReturnKeyNext;
         _passwordTextField.secureTextEntry = YES;
         _passwordTextField.delegate = self;
         
     }
     return _passwordTextField;
 }
+
+// ---- 昵称输入
+- (UIView *)nickBoxView {
+    if(!_nickBoxView) {
+        _nickBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, self.passwordBoxView.lim_bottom+20.0f, WKScreenWidth, self.mobileBoxView.lim_height)];
+//        [_nickBoxView setBackgroundColor:[UIColor blueColor]];
+    }
+    return _nickBoxView;
+}
+- (UIView *)nickBottomLineView {
+    if(!_nickBottomLineView) {
+        _nickBottomLineView = [[UIView alloc] initWithFrame:CGRectMake(20.0f, self.nickBoxView.lim_height, WKScreenWidth-40.0f, 1)];
+        _nickBottomLineView.layer.backgroundColor = [WKApp shared].config.lineColor.CGColor;
+    }
+    return _nickBottomLineView;
+}
+
+-(UITextField*) nickTextField {
+    if(!_nickTextField) {
+        _nickTextField = [[UITextField alloc] initWithFrame:CGRectMake(20.0f,0, WKScreenWidth-20*2 - 32.0f, 40.0f)];
+        _nickTextField.placeholder = LLang(@"请输入昵称");
+        _nickTextField.returnKeyType = UIReturnKeyDone;
+        _nickTextField.delegate = self;
+    }
+    return _nickTextField;
+}
+
+
 - (UIButton *)eyeBtn {
     if(!_eyeBtn) {
         CGFloat width = 32.0f;
@@ -294,14 +333,14 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
 
 - (UIView *)inviteCodeBoxView {
     if(!_inviteCodeBoxView) {
-        _inviteCodeBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, self.passwordBoxView.lim_bottom+20.0f, WKScreenWidth, self.passwordBoxView.lim_height)];
+        _inviteCodeBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, self.nickBoxView.lim_bottom+20.0f, WKScreenWidth, self.nickBoxView.lim_height)];
     }
     return _inviteCodeBoxView;
 }
 
 - (UITextField *)inviteCodeTextField {
     if(!_inviteCodeTextField) {
-        _inviteCodeTextField = [[UITextField alloc] initWithFrame:CGRectMake(20.0f, self.passwordBoxView.lim_height/2.0f - 20.0f, WKScreenWidth-20*2 - 32.0f, 40.0f)];
+        _inviteCodeTextField = [[UITextField alloc] initWithFrame:CGRectMake(20.0f, self.inviteCodeBoxView.lim_height/2.0f + 40.0f, WKScreenWidth-20*2 - 32.0f, 40.0f)];
         
         _inviteCodeTextField.hidden = !WKApp.shared.remoteConfig.registerInviteOn;
         if(WKApp.shared.remoteConfig.registerInviteOn) {
@@ -324,16 +363,14 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
 
 
 // ---------- 底部相关 ----------
-
-
 // 注册
 - (UIButton *)registerBtn {
     if(!_registerBtn) {
-        CGFloat top = self.passwordBoxView.lim_bottom;
+        CGFloat top = self.inviteCodeBoxView.lim_bottom;
         if(WKApp.shared.remoteConfig.registerInviteOn) {
             top = self.inviteCodeBoxView.lim_bottom;
         }
-        _registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(30.0f,top+82.0f, WKScreenWidth - 60.0f, 40.0f)];
+        _registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(30.0f,top+120.0f, WKScreenWidth - 60.0f, 40.0f)];
         [_registerBtn setBackgroundColor:[WKApp shared].config.themeColor];
         [_registerBtn setTitle:LLang(@"注册") forState:UIControlStateNormal];
         [_registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -474,10 +511,11 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
     NSString *zone = self.country;
     NSString *phone = self.mobileTextField.text;
     NSString *password = self.passwordTextField.text;
+    NSString *nick = self.nickTextField.text;
     NSString *inviteCode = self.inviteCodeTextField.text;
     [self.view showHUD:LLang(@"注册中")];
     __weak typeof(self) weakSelf = self;
-    [self.viewModel registerByPhone:[NSString stringWithFormat:@"00%@",zone] phone:phone code:code inviteCode:inviteCode password:password].then(^(WKLoginResp*resp){
+    [self.viewModel registerByPhone:[NSString stringWithFormat:@"00%@",zone] phone:phone code:code nick:nick inviteCode:inviteCode password:password].then(^(WKLoginResp*resp){
         [weakSelf.view hideHud];
         if(!resp.name || [resp.name isEqualToString:@""]) { // 如果没名字就跳到完善注册资料页面
              [WKLoginVM handleLoginData:resp isSave:NO];
@@ -519,6 +557,8 @@ static int lastGetCodeTimestamp = 0; // 最后一次获取验证码的时间戳�
     }
     return _privacyLbl;
 }
+
+
 
 #pragma mark -- M80AttributedLabelDelegate
 
