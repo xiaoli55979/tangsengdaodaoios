@@ -1354,8 +1354,8 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
         WKChannelInfo *channelInfo = [[WKSDK shared].channelManager getChannelInfo:fromChannel];
         /// 获取成员信息
         WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:fromChannel uid:[WKApp shared].loginInfo.uid];
-        BOOL status = [channelInfo.extra[@"allow_members_visible"] boolValue];
-        if (channelInfo.extra[@"allow_members_visible"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
+        BOOL status = [channelInfo.extra[@"allow_view_member_info"] boolValue];
+        if (channelInfo.extra[@"allow_view_member_info"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
             [WKAlertUtil alert:LLangW(@"当前无权限",weakSelf)];
             return nil;
         }

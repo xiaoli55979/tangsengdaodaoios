@@ -415,6 +415,21 @@
 "禁止添加好友"="Prohibit adding friends";
 "消息回执"="Message receipt";
 "允许查看历史消息"="Whether to allow viewing of historical messages";
+
+"退群提醒"="Nhắc nhở rời nhóm";
+"查看成员信息"="Xem thông tin thành viên";
+"群成员是否可见"="Thành viên trong nhóm có thể nhìn thấy không";
+"允许消息撤回"="Cho phép thu hồi tin nhắn";
+"允许发送名片"="Cho phép gửi danh thiếp";
+
+"退群提醒"="Group Leave Reminder";
+"查看成员信息"="View Member Information";
+"群成员是否可见"="Whether Group Members Are Visible";
+"允许消息撤回"="Allow Message Recall";
+"允许发送名片"="Allow Sending Business Cards";
+
+
+
 "添加群管理员"="Add group admin";
 "阅后即焚" = "Burn After Reading";
 "请输入阅后即焚时长(%d)" = "Please enter the burn after reading duration (%d)";
