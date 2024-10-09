@@ -362,7 +362,7 @@
 
     
     /// 是否显示昵称
-    [[WKApp shared] setMethod:@"channelsetting.msgback" handler:^id _Nullable(id  _Nonnull param) {
+    [[WKApp shared] setMethod:@"channelsetting.shownick" handler:^id _Nullable(id  _Nonnull param) {
         WKChannel *channel = param[@"channel"];
         if(channel.channelType != WK_GROUP) {
             return nil;

@@ -704,7 +704,14 @@ static NSMutableDictionary *flameNodeCacheDict;
 
 // 是否显示昵称
 -(BOOL) showNick {
-    return self.messageModel.channelInfo && self.messageModel.channelInfo.showNick;
+//    return self.messageModel.channelInfo && self.messageModel.channelInfo.showNick;
+    /// 获取成员信息
+    WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:self.messageModel.channel uid:[WKApp shared].loginInfo.uid];
+    BOOL status = [self.messageModel.channelInfo.extra[WKChannelExtraKeyAllowShowNick] boolValue];
+    if (self.messageModel.channelInfo.extra[WKChannelExtraKeyAllowShowNick] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
+        return YES;
+    }
+    return NO;
 }
 
 
