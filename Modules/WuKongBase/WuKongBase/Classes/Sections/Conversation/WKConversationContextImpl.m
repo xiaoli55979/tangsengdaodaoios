@@ -112,7 +112,7 @@
     self.conversationView.replyMessage = message;
     
     UIView *replyView = [self replyView:message];
-    
+    // 回复输入框顶部视图
     [self setInputTopView:replyView];
     
     // 添加@
@@ -480,7 +480,6 @@
         return editMessage;
     }
     
-  
     
     // ---------- 其它逻辑  ----------
     if(newEntities.count>0) {

@@ -961,6 +961,38 @@
         };
     } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89340];
     
+    
+    [[WKApp shared] setMethod:@"channelsetting.allow_show_nick" handler:^id _Nullable(id  _Nonnull param) {
+        /// 只有管理员和创建者可以设置
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
+        if(self.channel.channelType != WK_GROUP) {
+            return nil;
+        }
+        
+        WKChannel *channel = param[@"channel"];
+        CGFloat sectionHeight = 0.0f;
+        if(channel.channelType == WK_GROUP) {
+            sectionHeight = WKSectionHeight.floatValue;
+        }
+        return  @{
+            @"height":@(0.0f),
+            @"items":@[
+                @{
+                    @"class":WKSwitchItemModel.class,
+                    @"label":LLang(@"显示成员昵称"),
+                    @"on":@(self.channelInfo?[self.channelInfo.extra[@"allow_show_nick"] boolValue]:false),
+                    @"showBottomLine":@(YES),
+                    @"bottomLeftSpace":@(0.0f),
+                    @"onSwitch":^(BOOL on){
+                        [[WKChannelSettingManager shared] updateGroupManagerSetting:WKGroupSettingKeyAllowShowNick on:on groupNo:self.channel.channelId];
+                    }
+                },
+               ]
+        };
+    } category:WKPOINT_CATEGORY_CHANNELSETTING sort:89339];
+    
     [[WKApp shared] setMethod:@"channelsetting.addgroupmanager" handler:^id _Nullable(id  _Nonnull param) {
         /// 只有管理员和创建者可以设置
         if (![self isManagerOrCreatorForMe]) {

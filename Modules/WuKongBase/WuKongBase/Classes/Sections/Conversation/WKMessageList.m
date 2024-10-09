@@ -185,7 +185,7 @@
 
 
 -(void) addMessageOnly:(WKMessageModel *)message {
-    
+
 /// 敏感词
     [self handleProhibitwords:message]; // 处理违禁词
     
@@ -207,8 +207,16 @@
             content.content =[WKProhibitwordsService.shared filter:content.content]; // 违禁词过滤
             return;
         }
+        
+        /// 处理回复引用的敏感词
+        if (messageModel.content.reply) {
+            WKTextContent *replyContent = (WKTextContent *)messageModel.content.reply.content;
+            replyContent.content = [WKProhibitwordsService.shared filter:replyContent.content]; // 违禁词过滤
+        }
+
         WKTextContent *content = (WKTextContent*)messageModel.content;
         content.content = [WKProhibitwordsService.shared filter:content.content]; // 违禁词过滤
+        
     }
 }
 
