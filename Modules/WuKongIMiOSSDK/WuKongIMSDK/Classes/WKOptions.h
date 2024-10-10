@@ -22,6 +22,8 @@ typedef WKConnectInfo*_Nonnull(^WKConnectInfoCallback)(void);
 
 @interface WKOptions : NSObject
 
+// socketType:使用旧版的tcp  1:使用新版的:webSocket
+@property (nonatomic, assign) int  socketType;
 
 /**
  IM的host

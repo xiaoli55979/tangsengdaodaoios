@@ -27,11 +27,17 @@
 #import "WKChatManagerInner.h"
 #import "WKConversationManagerInner.h"
 #import "WKMessageQueueManager.h"
+#import <SocketRocket/SRWebSocket.h>
 
-@interface WKConnectionManager ()<GCDAsyncSocketDelegate>
+// 0使用GCDAsyncSocket  如果是1使用SRWebSocket
+//#define kSRWebSocket 1
+
+@interface WKConnectionManager ()<GCDAsyncSocketDelegate,SRWebSocketDelegate>
 
 
 @property(nonatomic,strong) GCDAsyncSocket *ssocket;
+
+@property (nonatomic, strong) SRWebSocket *webSocket;
 
 /**
  *  用来存储所有添加j过的delegate
@@ -145,7 +151,13 @@ static dispatch_queue_t _imsocketQueue;
 
 
 -(void) onlyConnect {
-    @synchronized (self.ssocket) {
+    id socket = nil;
+    if ([WKSDK shared].options.socketType) {
+        socket = self.webSocket;
+    } else {
+        socket = self.ssocket;
+    }
+    @synchronized (socket) {
          if(self.connectStatusInner == WKConnected ||  self.connectStatusInner == WKConnecting) {
               if([WKSDK shared].isDebug) {
                   NSLog(@"已建立连接或在连接中，不再执行连接！");
@@ -160,10 +172,19 @@ static dispatch_queue_t _imsocketQueue;
           // 状态变为：连接中...
           [self changeConnectStatus:WKConnecting];
           
-        if(self.ssocket) {
-            self.ssocket.delegate = nil;
-            self.ssocket = nil;
-          }
+        if ([WKSDK shared].options.socketType) {
+            if (self.webSocket) {
+                self.webSocket.delegate = nil;
+                self.webSocket = nil;
+            }
+        } else {
+            if(self.ssocket) {
+                self.ssocket.delegate = nil;
+                self.ssocket = nil;
+              }
+        }
+      
+
           // 循环去拿连接地址，直到拿到地址
           [self loopGetAddrToConnect];
         
@@ -190,26 +211,37 @@ static dispatch_queue_t _imsocketQueue;
             }
             NSArray *addrs = [addr componentsSeparatedByString:@":"];
             if(addrs.count>0) {
-                [weakSelf connectSocket:addrs[0] port:[addrs[1] integerValue]];
+                [weakSelf connectSocket:addrs[0] port:[addrs[1] integerValue] websockUrl:addr];
             }
         });
     }else {
-        [self connectSocket:[WKSDK shared].options.host port:[WKSDK shared].options.port];
+        [self connectSocket:[WKSDK shared].options.host port:[WKSDK shared].options.port websockUrl:[WKSDK shared].options.host];
     }
 }
 
--(void) connectSocket:(NSString*)host port:(uint16_t)port {
+-(void) connectSocket:(NSString*)host port:(uint16_t)port websockUrl:(NSString *)url {
     if ([WKSDK shared].isDebug) {
-        NSLog(@"开始连接IM服务器 -> %@:%i",host,port);
+        NSLog(@"开始连接IM服务器 ->socket: %@:%i  webSocket:%@",host,port,url);
     }
-    self.ssocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:_imsocketQueue];
-    NSError *error=nil;
-    [self.ssocket connectToHost:host onPort:port error:&error];
-    if(error) {
-        NSLog(@"连接IM服务器失败-> %@",error);
-        // 状态变为：已断开
-        [self changeConnectStatus:WKDisconnected];
+    if ([WKSDK shared].options.socketType) {
+        
+        NSString *urlString = [NSString stringWithFormat:@"%@", url];
+        NSURL *url = [NSURL URLWithString:urlString];
+        self.webSocket = [[SRWebSocket alloc] initWithURL:url];
+        self.webSocket.delegate = self; // 设置代理，用于监听 WebSocket 事件
+        [self.webSocket open];  // 打开 WebSocket 连接
+\
+    } else {
+        self.ssocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:_imsocketQueue];
+        NSError *error=nil;
+        [self.ssocket connectToHost:host onPort:port error:&error];
+        if(error) {
+            NSLog(@"连接IM服务器失败-> %@",error);
+            // 状态变为：已断开
+            [self changeConnectStatus:WKDisconnected];
+        }
     }
+
 }
 
 
@@ -293,7 +325,11 @@ static dispatch_queue_t _imsocketQueue;
     self.forceDisconnect = force;
     [self.connectStatusLock unlock];
     
-    [self.ssocket disconnect];
+    if ([WKSDK shared].options.socketType) {
+        [self.webSocket close];
+    } else {
+        [self.ssocket disconnect];
+    }
     
 }
 
@@ -304,8 +340,11 @@ static dispatch_queue_t _imsocketQueue;
     [self.connectStatusLock unlock];
     
     [[WKSDK shared].channelManager removeChannelAllCache];
-    
-    [self.ssocket disconnect];
+    if ([WKSDK shared].options.socketType) {
+        [self.webSocket close];
+    } else {
+        [self.ssocket disconnect];
+    }
 }
 
 // 重连
@@ -433,7 +472,11 @@ static dispatch_queue_t _imsocketQueue;
 }
 
 -(void) writeData:(NSData*) data {
-    [self.ssocket writeData:data withTimeout:1 tag:0];
+    if ([WKSDK shared].options.socketType) {
+        [self.webSocket send:data];
+    } else {
+        [self.ssocket writeData:data withTimeout:1 tag:0];
+    }
 }
 
 - (NSLock *)delegateLock {
@@ -811,6 +854,69 @@ static dispatch_queue_t _imsocketQueue;
             }
         }
     });
+}
+
+
+#pragma mark - SRWebSocketDelegate
+
+// WebSocket 连接成功时的回调
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket {
+    NSLog(@"WebSocket 连接成功");
+    [self changeConnectStatus:WKConnected];  // 更新状态为已连接
+    
+    // 发送连接包
+    [self sendConnectPacket:[WKSDK shared].options.connectInfo.uid token:[WKSDK shared].options.connectInfo.token];
+
+    // 可以开始发送心跳包
+    [self startHeartbeat];
+}
+
+// WebSocket 连接失败时的回调
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
+    NSLog(@"WebSocket 连接失败-> %@", error);
+    [self changeConnectStatus:WKDisconnected];  // 更新状态为已断开
+    
+}
+
+// WebSocket 收到消息时的回调
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
+    if ([WKSDK shared].isDebug) {
+        NSLog(@"读取到消息-> %@", message);
+    }
+
+    // 处理接收到的消息
+    if ([message isKindOfClass:[NSString class]]) {
+        NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+        [self unpacket:data callback:^(NSArray<NSData *> *dataArray) {
+            NSLog(@"------------解包消息数量--------> %lu", (unsigned long)dataArray.count);
+            [self handlePacketData:dataArray];
+        }];
+    } else if ([message isKindOfClass:[NSData class]]) {
+        // 处理二进制数据
+        [self unpacket:message callback:^(NSArray<NSData *> *dataArray) {
+            NSLog(@"------------解包消息数量--------> %lu", (unsigned long)dataArray.count);
+            [self handlePacketData:dataArray];
+        }];
+    }
+}
+
+
+// WebSocket 关闭时的回调
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
+    NSLog(@"WebSocket 已关闭，原因: %@", reason);
+    self.tempBufferData = [[NSMutableData alloc] init]; // 清除缓存数据
+    // 状态变为：已断开
+    [self changeConnectStatus:WKDisconnected];
+    // 停止心跳
+    [self stopHeartbeat];
+
+    if (!self.forceDisconnect) { // 如果不是强制断开，则开启退避算法重连
+        [self backoffReconnect];
+    } else {
+        if ([WKSDK shared].isDebug) {
+            NSLog(@"已强制断开，不再重连！");
+        }
+    }
 }
 
 

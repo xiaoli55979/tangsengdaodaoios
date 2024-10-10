@@ -59,4 +59,5 @@ Pod::Spec.new do |s|
   s.dependency 'CocoaAsyncSocket', '~> 7.6.4'
   s.dependency 'FMDB/SQLCipher', '~>2.7.5'
   s.dependency '25519', '~>2.0.2'
+  s.dependency 'SocketRocket'
 end

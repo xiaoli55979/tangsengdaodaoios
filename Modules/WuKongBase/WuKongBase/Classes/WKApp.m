@@ -330,12 +330,9 @@ static WKApp *_instance;
     if([WKApp shared].config.clusterOn) {
        [[WKSDK shared].connectionManager setGetConnectAddr:^(void (^ _Nonnull complete)(NSString * __nullable)) {
            [[WKAPIClient sharedClient] GET:[NSString stringWithFormat:@"users/%@/im",weakSelf.loginInfo.uid] parameters:nil].then(^(NSDictionary *addrDict){
-               if(addrDict && addrDict[@"tcp_addr"]) {
-                    complete(addrDict[@"tcp_addr"]);
-               }else{
-                   complete(nil);
-               }
-              
+               NSString *addressKey = [WKSDK shared].options.socketType ? @"wss_addr" : @"tcp_addr";
+               NSString *address = addrDict[addressKey];
+               complete(address ?: nil);
            }).catch(^(NSError *error){
                complete(nil);
                WKLogError(@"获取IM连接地址失败！-> %@",error);

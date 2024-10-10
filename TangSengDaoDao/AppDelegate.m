@@ -68,7 +68,8 @@
     config.privacyAgreementUrl = [NSString stringWithFormat:@"%@privacy_policy.html",WEB_URL]; //隐私协议
     config.userAgreementUrl = [NSString stringWithFormat:@"%@user_agreement.html",WEB_URL]; //用户协议
     [WKApp shared].config = config;
-    
+    [WKSDK shared].options.socketType = 1;// 使用websocket
+
     // app首页设置
     [WKApp shared].getHomeViewController = ^UIViewController * _Nonnull{
         WKMainTabController *homeViewController =  [WKMainTabController new];
