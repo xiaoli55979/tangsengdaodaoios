@@ -31,9 +31,9 @@
         self.shortName = @"WuKong ID";
         self.appID = @""; // appstore的id
         self.appSchemaPrefix = @"wukong";
-        self.clusterOn = YES;
         // 使用新版webSecket
         [WKSDK shared].options.socketType = 1;
+        self.clusterOn = YES;
         
          // ---------- 基础配置 ----------
         self.themeColor = [UIColor colorWithRed:228.0f/255.0f green:99.0f/255.0f blue:66.0f/255.0f alpha:1.0]; // #2F70F5
