@@ -202,7 +202,10 @@
 -(void) rightAddPressed {
     
     NSArray<WKConversationAddItem*> *items = [[WKApp shared] invokes:WKPOINT_CATEGORY_CONVERSATION_ADD param:nil];
-    
+    if (items.count == 0) {
+        [WKAlertUtil alert:LLangW(@"当前无权限",self)];
+        return;
+    }
     CGFloat statusHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
     NSMutableArray *itemDicts = [NSMutableArray array];
     if(items && items.count>0) {

@@ -50,7 +50,11 @@
 }
 
 -(void) addFriendPressed {
-    [[WKApp shared] invoke:WKPOINT_CONVERSATION_ADDCONTACTS param:nil];
+    NSArray<WKConversationAddItem*> *items = [[WKApp shared] invoke:WKPOINT_CONVERSATION_ADDCONTACTS param:nil];
+    if (items.count == 0) {
+        [WKAlertUtil alert:LLangW(@"当前无权限",self)];
+        return;
+    }
 }
 
 // 确认邀请
