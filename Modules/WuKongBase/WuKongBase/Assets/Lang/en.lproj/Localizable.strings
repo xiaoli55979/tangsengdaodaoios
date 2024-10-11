@@ -32,7 +32,12 @@
 "聊天记录恢复"="Chat Recovery";
 "隐私政策"="Privacy Policy";
 "最后在线" = "Last online";
-
+"%0.0f分钟"="%0.0f Min";
+"%0.0f分钟前%@在线"="Online %0.0f minutes ago";
+"%@在线"="%@ Online";
+"手机"="Mobile";
+"电脑"="Computer";
+"网页"="Web";
 
 
 "为了迁移您的本地聊天记录，需要把您的聊天记录上传到服务器以支持新设备下载；"="In order to migrate your local chat records, you need to upload your chat records to the server to support new device download;";

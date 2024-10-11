@@ -311,13 +311,14 @@
                 self.onlineBadgeView.tip = nil;
             }else if ([[NSDate date] timeIntervalSince1970] - model.channelInfo.lastOffline<60) {
                 self.onlineBadgeView.hidden = NO;
-                           self.onlineBadgeView.tip = LLang(@"刚刚");
+                self.onlineBadgeView.tip = LLang(@"刚刚");
             }else if( model.channelInfo.lastOffline+60*60>[[NSDate date] timeIntervalSince1970]) {
                 self.onlineBadgeView.hidden = NO;
                 self.onlineBadgeView.tip =[NSString stringWithFormat:LLang(@"%0.0f分钟"),([[NSDate date] timeIntervalSince1970]-model.channelInfo.lastOffline)/60];
             }
         }
     }
+    self.onlineBadgeView.hidden = YES;
 }
 
 -(void) refreshLastMessage:(WKConversationWrapModel*)model {

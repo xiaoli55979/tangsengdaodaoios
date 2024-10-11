@@ -218,6 +218,11 @@
 "@所有人"="@All";
 "选择一个聊天"="Chọn một cuộc trò chuyện";
 "选择提醒的人"="Lựa chọn người nhắc nhở";
+"%0.0f分钟前%@在线"="Trực tuyến %0.0f phút trước";
+"手机"="Di động";
+"电脑"="Máy tính";
+"网页"="Web";
+"%@在线"="Trực tuyến %@";
 
 
 // WKConversationInputPanel

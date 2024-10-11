@@ -93,7 +93,6 @@
         self.onlineBadgeView.hidden = NO;
         self.onlineBadgeView.tip =[NSString stringWithFormat:LLang(@"%0.0f分钟"),([[NSDate date] timeIntervalSince1970]-_contactModel.lastOffline)/60];
     }
-    
 }
 
 

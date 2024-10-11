@@ -207,13 +207,13 @@ static WKOnlineStatusManager *_instance = nil;
 
 -(NSString*) deviceName:(WKDeviceFlagEnum)deviceFlag {
     if(deviceFlag == WKDeviceFlagEnumPC) {
-        return @"电脑";
+        return LLang(@"电脑");
     }
     if(deviceFlag == WKDeviceFlagEnumWeb) {
-        return @"网页";
+        return LLang(@"网页");
     }
     if(deviceFlag == WKDeviceFlagEnumAPP) {
-        return @"手机";
+        return LLang(@"手机");
     }
     return @"";
 }
