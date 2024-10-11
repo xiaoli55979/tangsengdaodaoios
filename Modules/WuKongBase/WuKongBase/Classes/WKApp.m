@@ -1048,6 +1048,12 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
         return nil;
     }];
     
+    
+    [self setMethod:WKPOINT_CONVERSATION_ADD_SCAN handler:^id _Nullable(id  _Nonnull param) {
+        return [WKConversationAddItem title:LLangW(@"扫一扫", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/Scan"] onClick:^{
+            [[WKApp shared] invoke:WKPOINT_CONVERSATION_SCAN param:nil];
+        }];
+    } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:7000];
     // ---------- 消息面板相关 ----------
     
     // emoji面板
@@ -1516,13 +1522,6 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
             }];
         } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
         
-        [self setMethod:WKPOINT_CONVERSATION_ADD_SCAN handler:^id _Nullable(id  _Nonnull param) {
-            return [WKConversationAddItem title:LLangW(@"扫一扫", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/Scan"] onClick:^{
-                [[WKApp shared] invoke:WKPOINT_CONVERSATION_SCAN param:nil];
-            }];
-        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:7000];
-        
-        
         
     } else {
         [self setMethod:WKPOINT_CONVERSATION_ADD_STARTCHAT handler:^id _Nullable(id  _Nonnull param) {
@@ -1532,11 +1531,7 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
         [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
             return nil;
         } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
-        
-        [self setMethod:WKPOINT_CONVERSATION_ADD_SCAN handler:^id _Nullable(id  _Nonnull param) {
-            return nil;
-        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:7000];
-        
+
     }
 
 }

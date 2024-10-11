@@ -227,7 +227,7 @@ static WKOnlineStatusManager *_instance = nil;
         return @"";
     }
 //    NSString *onlineDeviceName = [self deviceName:channelInfo.deviceFlag];
-   return [NSString stringWithFormat:@"最后在线 %@",[WKTimeTool formatDateStyle1:[NSDate dateWithTimeIntervalSince1970:channelInfo.lastOffline]]];
+   return [NSString stringWithFormat:@"%@ %@",LLang(@"最后在线"),[WKTimeTool formatDateStyle1:[NSDate dateWithTimeIntervalSince1970:channelInfo.lastOffline]]];
 }
 
 

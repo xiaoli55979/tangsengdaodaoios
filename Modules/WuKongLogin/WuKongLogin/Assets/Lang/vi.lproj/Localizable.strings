@@ -32,7 +32,7 @@
 "登录中"="Đang đăng nhập";
 "欢迎登录%@"="Chào mừng bạn đến với";
 "请输入登录密码"="Vui lòng nhập mật khẩu đăng nhập";
-"忘记密码?"="Quên mật khẩu?";
+"忘记密码"="Quên mật khẩu?";
 "新用户？请"="Người dùng mới? Xin vui lòng";
 "注册"="Đăng ký";
 "完善个人资料"="Hoàn thiện hồ sơ cá nhân";
@@ -50,3 +50,8 @@
 "注册中"="Đang đăng ký";
 "邀请码（选填）"="Mã giới thiệu (tùy chọn)";
 "邀请码（必填）"="Mã giới thiệu (bắt buộc)";
+"请输入昵称"="Vui lòng nhập biệt danh";
+"已有账号？请"="Đã có tài khoản? Vui lòng";
+"点击“注册”即表示已阅读并 đồng ý"="Bằng cách nhấp vào 'Đăng ký', bạn đồng ý rằng bạn đã đọc và đồng ý với";
+"用户协议"="Thỏa thuận người dùng";
+"隐私政策"="Chính sách bảo mật";

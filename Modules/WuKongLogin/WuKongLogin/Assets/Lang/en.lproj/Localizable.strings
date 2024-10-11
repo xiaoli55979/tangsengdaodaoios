@@ -31,7 +31,7 @@
 "登录中"="Logging in";
 "欢迎登录%@"="Welcome";
 "请输入登录密码"="Please enter your password";
-"忘记密码?"="Forget?";
+"忘记密码"="Forget Password?";
 "新用户？请"="New user? please";
 "注册"="register";
 "完善个人资料"="Improve personal information";
@@ -49,3 +49,9 @@
 "注册中"="Registering";
 "邀请码（选填）"="Invitation code (optional)";
 "邀请码（必填）"="Invitation code (required)";
+
+"请输入昵称"="Please enter a nickname";
+"已有账号？请"="Already have an account? Please";
+"点击“注册”即表示已阅读并同意"="By clicking 'Register', you acknowledge that you have read and agree to";
+"用户协议"="User Agreement";
+"隐私政策"="Privacy Policy";

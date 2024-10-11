@@ -29,7 +29,6 @@
 "群成员"="Thành viên nhóm";
 "聊天记录备份"="Sao lưu tin nhắn";
 "聊天记录恢复"="Khôi phục tin nhắn";
-"用户协议"="Thỏa thuận người dùng";
 "隐私政策"="Chính sách bảo mật";
 
 
@@ -106,6 +105,11 @@
 "[语音]"="[ m thanh]";
 
 // WKSystemMessageHandler
+"请输入昵称"="Vui lòng nhập biệt danh";
+"已有账号？请"="Đã có tài khoản? Vui lòng";
+"点击“注册”即表示已阅读并 đồng ý"="Bằng cách nhấp vào 'Đăng ký', bạn đồng ý rằng bạn đã đọc và đồng ý với";
+"用户协议"="Thỏa thuận người dùng";
+"隐私政策"="Chính sách bảo mật";
 
 
 "账号已在其他设备上登录！"="Tài khoản đã được đăng nhập trên thiết bị khác!";
@@ -116,7 +120,7 @@
 
 "相册权限受限"="Giới hạn quyền truy cập album";
 "检测不到相机设备"="Không phát hiện camera";
-
+"最后在线" = "Lần cuối trực tuyến";
 // ZCTradeInputView
 
 "请输入密码"="Nhập mật khẩu";

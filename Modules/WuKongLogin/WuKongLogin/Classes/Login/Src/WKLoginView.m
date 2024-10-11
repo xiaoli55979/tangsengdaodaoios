@@ -209,8 +209,8 @@
 // 忘记密码
 - (UIButton *)forgetPwdBtn {
     if(!_forgetPwdBtn) {
-        _forgetPwdBtn = [[UIButton alloc] initWithFrame:CGRectMake(20.0f, self.passwordBoxView.lim_bottom+15.0f, 60.0f, 17.0f)];
-        [_forgetPwdBtn setTitle:LLang(@"忘记密码?") forState:UIControlStateNormal];
+        _forgetPwdBtn = [[UIButton alloc] initWithFrame:CGRectMake(20.0f, self.passwordBoxView.lim_bottom+15.0f, 120.0f, 17.0f)];
+        [_forgetPwdBtn setTitle:LLang(@"忘记密码") forState:UIControlStateNormal];
         [_forgetPwdBtn setTitleColor:[WKApp shared].config.themeColor forState:UIControlStateNormal];
         [[_forgetPwdBtn titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
         [_forgetPwdBtn addTarget:self action:@selector(forgetPwdPressed) forControlEvents:UIControlEventTouchUpInside];

@@ -9,6 +9,13 @@
 "系统通知"="System Notification";
 "文件传输助手"="File Transfer";
 
+"请输入昵称"="Please enter a nickname";
+"已有账号？请"="Already have an account? Please";
+"点击“注册”即表示已阅读并同意"="By clicking 'Register', you acknowledge that you have read and agree to";
+"用户协议"="User Agreement";
+"隐私政策"="Privacy Policy";
+
+
 "注销账号"="Cancel Account";
 "群主"="Owner";
 "管理员"="Manager";
@@ -23,9 +30,8 @@
 "群成员"="Group Members";
 "聊天记录备份"="Chat Backup";
 "聊天记录恢复"="Chat Recovery";
-"用户协议"="User Agreement";
 "隐私政策"="Privacy Policy";
-
+"最后在线" = "Last online";
 
 
 
