@@ -203,6 +203,7 @@
 "消息回执"="Đã nhận";
 "开启后，发送的聊天信息会提示已读未读情况"="Sau khi bật, tin nhắn gửi đi sẽ hiển thị trạng thái đã xem hoặc chưa xem";
 "群设置"="Cài đặt nhóm";
+"当前无权限"="Không có quyền hiện tại";
 
 // WKConversationVC
 

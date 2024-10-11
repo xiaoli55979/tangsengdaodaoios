@@ -38,6 +38,7 @@
 "手机"="Mobile";
 "电脑"="Computer";
 "网页"="Web";
+"当前无权限"="No current permissions";
 
 
 "为了迁移您的本地聊天记录，需要把您的聊天记录上传到服务器以支持新设备下载；"="In order to migrate your local chat records, you need to upload your chat records to the server to support new device download;";

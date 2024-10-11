@@ -30,6 +30,7 @@
 // WKContactsSearchVC
 
 "用户不存在！"="User does not exist!";
+"当前无权限"="No current permissions";
 
 
 // WKContactsVM
