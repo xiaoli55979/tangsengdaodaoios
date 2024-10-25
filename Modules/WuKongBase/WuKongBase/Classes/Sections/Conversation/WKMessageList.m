@@ -210,9 +210,17 @@
         
         /// 处理回复引用的敏感词
         if (messageModel.content.reply) {
-            WKTextContent *replyContent = (WKTextContent *)messageModel.content.reply.content;
-            replyContent.content = [WKProhibitwordsService.shared filter:replyContent.content]; // 违禁词过滤
+            @try {
+                WKTextContent *replyContent = (WKTextContent *)messageModel.content.reply.content;
+                if (replyContent && replyContent.content) {  // 确保 replyContent 和 content 不为空
+                    replyContent.content = [WKProhibitwordsService.shared filter:replyContent.content]; // 违禁词过滤
+                }
+            }
+            @catch (NSException *exception) {
+//                NSLog(@"Exception caught while filtering prohibited words: %@", exception.reason);
+            }
         }
+
 
         WKTextContent *content = (WKTextContent*)messageModel.content;
         content.content = [WKProhibitwordsService.shared filter:content.content]; // 违禁词过滤
