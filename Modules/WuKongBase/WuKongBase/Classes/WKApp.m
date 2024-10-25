@@ -241,7 +241,7 @@ static WKApp *_instance;
     config.reportLogLevel = BuglyLogLevelWarn;
 #endif
     
-    [Bugly startWithAppId:@"82f8dd98ff" config:config];
+    [Bugly startWithAppId:@"b6290a15f0" config:config];
     if([WKApp shared].isLogined) {
         [Bugly setUserIdentifier: [WKApp shared].loginInfo.uid];
     }
