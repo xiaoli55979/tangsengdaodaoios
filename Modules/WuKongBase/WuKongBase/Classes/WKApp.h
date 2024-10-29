@@ -17,6 +17,8 @@
 #import "WKEndpointManager.h"
 #import "WKStickerPackage.h"
 #import <PromiseKit/PromiseKit.h>
+#import "MessageRateLimiter.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -90,10 +92,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 图片缓存
 @property(nonatomic,strong) SDImageCache *imageCache;
 
+/// 群消息发送管理
+@property(nonatomic,strong) MessageRateLimiter *messageRateLimiter;
+
+
 
 /// 当前聊天的频道
 @property(nonatomic,weak) WKChannel *currentChatChannel;
 
+
+/// 群消息发送管理类
+//@property(nonatomic,strong) MessageRateLimiter *rateLimiter;
 
 /// 当前打开的最近会话上下文
 @property(nonatomic,weak) id<WKConversationContext> conversationContext;

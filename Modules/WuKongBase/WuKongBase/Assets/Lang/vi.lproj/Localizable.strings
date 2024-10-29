@@ -90,7 +90,7 @@
 "发送%@的名片到当前聊天"="Gửi danh thiếp của %@ đến cuộc trò chuyện hiện tại";
 
 "添加表情"="Thêm biểu tượng cảm xúc";
-
+"发送太频繁,请稍候"="Gửi quá thường xuyên, vui lòng chờ một chút.";
 
 // WKBaseTableVC
 

@@ -97,7 +97,7 @@
 "发送%@的名片到当前聊天"="Send %@ business card to the current chat";
 
 "添加表情"="Add Emoji";
-
+"发送太频繁,请稍候"="Sending too frequently, please wait a moment.";
 
 // WKBaseTableVC
 

@@ -492,6 +492,16 @@
 
 
 -(WKMessage*) sendMessage:(WKMessageContent*)content {
+    WKChannelInfo *channelInfo = [self getChannelInfo];
+    
+    /// 消息限流检测
+    MessageRateLimiter *messageRateLimiter = [WKApp shared].messageRateLimiter;
+    if (![messageRateLimiter canSendMessageForID:channelInfo.channel.channelId] ) {
+//        NSLog(@"----消息限流----");
+        [WKAlertUtil alert:LLangW(@"发送太频繁,请稍候",self)];
+        return nil;
+    }
+    
     WKSetting *setting = [WKSetting new];
     if(self.conversationVM.channelInfo) {
         setting.receiptEnabled = self.conversationVM.channelInfo.receipt;
@@ -504,7 +514,6 @@
 //    }
     
     // ---------- 阅后即焚  ----------
-    WKChannelInfo *channelInfo = [self getChannelInfo];
     if(channelInfo && channelInfo.flame) {
         content.flame = channelInfo.flame;
         content.flameSecond = channelInfo.flameSecond;

@@ -85,6 +85,7 @@
 #import <Bugly/Bugly.h>
 #import "WKMyInviteCodeVC.h"
 #import "WKProhibitwordsService.h"
+#import "MessageRateLimiter.h"
 
 @import FPSCounter.Swift;
 //#import <PINRemoteImage/PINImageView+PINRemoteImage.h>
@@ -155,6 +156,14 @@ static WKApp *_instance;
         [_remoteConfig requestConfig:nil];
     }
     return _remoteConfig;
+}
+
+// 初始化消息限流器
+- (MessageRateLimiter *)messageRateLimiter {
+    if (!_messageRateLimiter) {
+        _messageRateLimiter = [[MessageRateLimiter alloc] init];
+    }
+    return _messageRateLimiter;
 }
 
 -(void) addNotifies {
