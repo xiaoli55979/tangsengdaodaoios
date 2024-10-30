@@ -91,8 +91,8 @@ static NSString *WKGroupAttrKeyName = @"name";
  @param object <#object description#>
  @param complete <#complete description#>
  */
--(void) groupManager:(WKGroupManager*)manager groupNo:(NSString*)groupNo membersOfDelete:(NSArray<NSString*>*)members object:(id __nullable)object complete:(void(^__nullable)(NSError * __nullable error))complete;
-
+// 删除群成员
+- (void)groupManager:(nonnull WKGroupManager *)manager groupNo:(nonnull NSString *)groupNo membersOfDelete:(nonnull NSArray<NSString *> *)members namesOfDelete:(nonnull NSArray<NSString *> *)names object:(id _Nullable)object complete:(void (^ _Nullable)(NSError * __nullable))complete;
 
 /// 将群成员设置为管理员
 /// @param manager <#manager description#>
@@ -278,8 +278,7 @@ static NSString *WKGroupAttrKeyName = @"name";
  @param object <#object description#>
  @param complete <#complete description#>
  */
--(void) groupNo:(NSString*)groupNo membersOfDelete:(NSArray<NSString*>*)members object:(id __nullable)object complete:(void(^__nullable)(NSError *error))complete;
-
+-(void) groupNo:(NSString*)groupNo membersOfDelete:(NSArray<NSString*>*)members namesOfDelete:(NSArray<NSString*>*)names object:(id __nullable)object complete:(void(^__nullable)(NSError *error))complete;
 
 
 /// 将成员设置为管理员

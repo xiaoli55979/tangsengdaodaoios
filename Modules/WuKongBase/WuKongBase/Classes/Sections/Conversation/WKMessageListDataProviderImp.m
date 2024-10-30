@@ -183,6 +183,7 @@
     [self.messageList cancelSelectedMessages];
 }
 
+// 消息处理
 -(void) addMessage:(WKMessageModel*)message {
     [self.messageList addMessage:message];
 }

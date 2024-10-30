@@ -1011,6 +1011,14 @@
         return false;
     }
    
+    // 获取当前用户的频道成员信息
+    WKChannelMember *memberOfMe = [[WKSDK shared].channelManager getMember:message.channel uid:[WKApp shared].loginInfo.uid];
+    // 普通成员不显示添加或移除群的消息（消息类型 1002 和 1003）
+    if (memberOfMe != nil && memberOfMe.role == WKMemberRoleCommon &&
+       (message.contentType == 1002 || message.contentType == 1003)) {
+        return false;
+    }
+    
     return true;
 }
 
@@ -1254,7 +1262,7 @@
 // 消息更新
 -(void) onMessageUpdate:(WKMessage*) message left:(NSInteger)left total:(NSInteger)total{
     WKLogDebug(@"onMessageUpdate-->%u",message.messageSeq);
-
+// 消息处理
     if(![self needHandle:message]) {
         return;
     }

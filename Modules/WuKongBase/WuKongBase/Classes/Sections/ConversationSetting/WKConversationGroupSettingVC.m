@@ -159,7 +159,18 @@
     self.headerView.lim_height = [self.settingMemberGridView viewHeight] + memberGridViewTop;
     [self.tableView reloadData];
     
-    self.title = [NSString stringWithFormat:LLang(@"聊天信息(%lu)"),self.viewModel.memberCount];
+    /// 获取群信息
+    WKChannelInfo *channelInfo = [[WKSDK shared].channelManager getChannelInfo:self.channel];
+    self.channelInfo = channelInfo;
+    /// 获取成员信息
+    WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:self.channel uid:[WKApp shared].loginInfo.uid];
+    self.memberOfMy = memberOfMy;
+    BOOL status = [channelInfo.extra[@"allow_members_visible"] boolValue];
+    if (channelInfo.extra[@"allow_members_visible"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
+        self.title = LLang(@"聊天信息");
+    } else {
+        self.title = [NSString stringWithFormat:LLang(@"聊天信息(%lu)"),self.viewModel.memberCount];
+    }
 }
 //
 //- (UITableView *)tableView{
@@ -481,8 +492,8 @@
     }
     vc.hiddenUsers = @[WKApp.shared.loginInfo.uid];
     vc.disableUsers = disableUsers;
-    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids) {
-        [[WKGroupManager shared] groupNo:weakSelf.channel.channelId membersOfDelete:uids object:nil complete:^(NSError * _Nonnull error) {
+    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids,NSArray<NSString *> * _Nonnull names) {
+        [[WKGroupManager shared] groupNo:weakSelf.channel.channelId membersOfDelete:uids namesOfDelete:names object:nil complete:^(NSError * _Nonnull error) {
             if(error) {
                 [[WKNavigationManager shared].topViewController.view showMsg:error.domain];
                 return;
@@ -671,7 +682,7 @@
     vc.disableUsers = disableUsers;
     vc.hiddenUsers = @[WKApp.shared.loginInfo.uid];
     
-    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids) {
+    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids,NSArray<NSString *> * _Nonnull names) {
         [[WKGroupManager shared] groupNo:weakSelf.channel.channelId membersToManager:uids complete:^(NSError * _Nonnull error) {
             [weakSelf refreshMembers];
             [[WKNavigationManager shared] popViewControllerAnimated:YES];
@@ -701,7 +712,7 @@
     vc.disableUsers = disableUsers;
     vc.hiddenUsers = @[WKApp.shared.loginInfo.uid];
     
-    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids) {
+    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids,NSArray<NSString *> * _Nonnull names) {
         [[WKGroupManager shared] groupNo:weakSelf.channel.channelId managersToMember:uids complete:^(NSError * _Nonnull error) {
             [weakSelf refreshMembers];
             [[WKNavigationManager shared] popViewControllerAnimated:YES];
@@ -731,7 +742,7 @@
     vc.disableUsers = disableUsers;
     vc.hiddenUsers = @[WKApp.shared.loginInfo.uid];
     
-    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids) {
+    vc.onFinishedSelect = ^(NSArray<NSString *> * _Nonnull uids,NSArray<NSString *> * _Nonnull names) {
         [[WKGroupManager shared] groupNo:weakSelf.channel.channelId toUid:uids.firstObject complete:^(NSError * _Nonnull error) {
             [[WKSDK shared].channelManager fetchChannelInfo:self.channel]; // 先同步一次
             [[WKNavigationManager shared] popToRootViewControllerAnimated:YES];

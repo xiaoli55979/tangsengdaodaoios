@@ -117,13 +117,15 @@
 // 下一步点击
 -(void) nextBtnPress  {
     NSMutableArray *uids = [NSMutableArray array];
+    NSMutableArray *names = [NSMutableArray array];
     if(self.viewModel.selectedMembers) {
         for (WKChannelMember *channelMember in self.viewModel.selectedMembers) {
             [uids addObject:channelMember.memberUid];
+            [names addObject:channelMember.memberName];
         }
     }
     if(self.onFinishedSelect) {
-        self.onFinishedSelect(uids);
+        self.onFinishedSelect(uids,names);
     }
 }
 

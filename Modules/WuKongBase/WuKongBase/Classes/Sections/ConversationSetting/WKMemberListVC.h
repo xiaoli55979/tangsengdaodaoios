@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // 完成选择
-typedef void (^MembersFinishedSelect)(NSArray<NSString*>* uids);
+typedef void (^MembersFinishedSelect)(NSArray<NSString*>* uids,NSArray<NSString*>* names);
 
 @interface WKMemberListVC : WKBaseVC<WKMemberListVM*>
 

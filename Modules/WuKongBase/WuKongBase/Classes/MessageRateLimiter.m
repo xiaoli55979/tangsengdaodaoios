@@ -2,9 +2,8 @@
 
 @interface MessageRateLimiter ()
 
-@property (nonatomic, strong) NSMutableDictionary<id, NSMutableArray<NSDate *> *> *messageTimestamps;
-@property (nonatomic, assign) NSTimeInterval timeLimit;
-@property (nonatomic, assign) NSInteger maxMessages;
+@property (nonatomic, strong) NSMutableDictionary<id, NSDate *> *lastMessageTimestamps;
+@property (nonatomic, assign) NSTimeInterval messageInterval;
 @property (nonatomic, strong) dispatch_queue_t queue;
 
 @end
@@ -14,12 +13,20 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _timeLimit = 10; // 时间限制10秒
-        _maxMessages = 1; // 最大消息数量限制为1条
-        _messageTimestamps = [NSMutableDictionary dictionary];
+        _messageInterval = 1; // 默认时间间隔为10秒
+        _lastMessageTimestamps = [NSMutableDictionary dictionary];
         _queue = dispatch_queue_create("com.wukongbase.messagelimiter", DISPATCH_QUEUE_SERIAL);
     }
     return self;
+}
+
+// 设置每分钟允许的消息数量
+- (void)setMessageLimitPerMinute:(NSInteger)count {
+    if (count <= 0) {
+        self.messageInterval = 60; // 确保最低限度为60秒一条消息
+    } else {
+        self.messageInterval = 60.0 / count; // 计算平均每条消息的发送间隔
+    }
 }
 
 - (BOOL)canSendMessageForID:(id)identifier {
@@ -27,23 +34,12 @@
     NSDate *currentTime = [NSDate date];
     
     dispatch_sync(self.queue, ^{
-        // 获取当前标识符的时间戳数组，如果没有则创建新的
-        NSMutableArray<NSDate *> *timestamps = self.messageTimestamps[identifier];
-        if (!timestamps) {
-            timestamps = [NSMutableArray array];
-            self.messageTimestamps[identifier] = timestamps;
-        }
+        NSDate *lastTimestamp = self.lastMessageTimestamps[identifier];
         
-        // 移除超过时间限制的时间戳
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSDate *timestamp, NSDictionary *bindings) {
-            return [currentTime timeIntervalSinceDate:timestamp] < self.timeLimit;
-        }];
-        [timestamps filterUsingPredicate:predicate];
-        
-        // 检查当前消息数量是否超过限制
-        if (timestamps.count < self.maxMessages) {
-            // 添加当前消息的时间戳
-            [timestamps addObject:currentTime];
+        // 判断是否满足消息发送间隔
+        if (!lastTimestamp || [currentTime timeIntervalSinceDate:lastTimestamp] >= self.messageInterval) {
+            // 更新最后发送时间戳
+            self.lastMessageTimestamps[identifier] = currentTime;
             canSend = YES;
         }
     });

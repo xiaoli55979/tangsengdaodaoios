@@ -192,6 +192,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) BOOL phoneSearchOff;
 @property(nonatomic,assign) BOOL shortnoEditOff;
 @property(nonatomic,assign) NSInteger revokeSecond; // 撤回时间
+@property(nonatomic,assign) NSInteger messageRateLimiterMinutes; // 每分钟能发几条
 @property(nonatomic,assign) BOOL registerInviteOn; // 是否开启注册邀请
 @property(nonatomic,assign) BOOL inviteSystemAccountJoinGroupOn; // 是否允许邀请系统账号加入群里
 

@@ -35,6 +35,7 @@
         [WKSDK shared].options.socketType = 1;
         self.clusterOn = YES;
         
+        
          // ---------- 基础配置 ----------
         self.themeColor = [UIColor colorWithRed:228.0f/255.0f green:99.0f/255.0f blue:66.0f/255.0f alpha:1.0]; // #2F70F5
         self.backgroundColor = [self navBackgroudColorWithAlpha:1.0f];
@@ -495,6 +496,11 @@
             }
             if(resultDict[@"revoke_second"]) {
                 weakSelf.revokeSecond = [resultDict[@"revoke_second"] integerValue];
+            }
+            
+            if(resultDict[@"message_rate_limiter_minutes"]) {
+                weakSelf.messageRateLimiterMinutes = [resultDict[@"message_rate_limiter_minutes"] integerValue];
+                [[WKApp shared].messageRateLimiter setMessageLimitPerMinute:weakSelf.messageRateLimiterMinutes];
             }
             if(resultDict[@"register_invite_on"]) {
                 weakSelf.registerInviteOn = [resultDict[@"register_invite_on"] boolValue];

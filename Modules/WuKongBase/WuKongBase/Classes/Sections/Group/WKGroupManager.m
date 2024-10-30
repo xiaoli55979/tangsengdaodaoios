@@ -356,9 +356,9 @@ static WKGroupManager *_instance;
     }
 }
 
--(void) groupNo:(NSString*)groupNo membersOfDelete:(NSArray<NSString*>*)members object:(id __nullable)object complete:(void(^__nullable)(NSError *error))complete {
-    if(_delegate && [_delegate respondsToSelector:@selector(groupManager:groupNo:membersOfDelete:object:complete:)]) {
-        [_delegate groupManager:self groupNo:groupNo membersOfDelete:members object:object complete:complete];
+-(void) groupNo:(NSString*)groupNo membersOfDelete:(NSArray<NSString*>*)members namesOfDelete:(NSArray<NSString*>*)names object:(id __nullable)object complete:(void(^__nullable)(NSError *error))complete {
+    if(_delegate && [_delegate respondsToSelector:@selector(groupManager:groupNo:membersOfDelete:namesOfDelete:object:complete:)]) {
+        [_delegate groupManager:self groupNo:groupNo membersOfDelete:members namesOfDelete:names object:object complete:complete];
     }
 }
 

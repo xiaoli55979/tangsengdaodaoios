@@ -44,8 +44,7 @@
 }
 
 // 删除群成员
-- (void)groupManager:(nonnull WKGroupManager *)manager groupNo:(nonnull NSString *)groupNo membersOfDelete:(nonnull NSArray<NSString *> *)members object:(id _Nullable)object complete:(void (^ _Nullable)(NSError * __nullable))complete {
-    NSMutableArray *names = [NSMutableArray array];
+- (void)groupManager:(nonnull WKGroupManager *)manager groupNo:(nonnull NSString *)groupNo membersOfDelete:(nonnull NSArray<NSString *> *)members namesOfDelete:(nonnull NSArray<NSString *> *)names object:(id _Nullable)object complete:(void (^ _Nullable)(NSError * __nullable))complete {
     [[WKAPIClient sharedClient] DELETE:[NSString stringWithFormat:@"groups/%@/members",groupNo] parameters:@{@"members":members?:@[],@"names":names}].then(^{
         if(complete) {
             complete(nil);

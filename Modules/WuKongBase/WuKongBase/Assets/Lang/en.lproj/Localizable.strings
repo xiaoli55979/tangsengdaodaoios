@@ -155,7 +155,7 @@
 "群内禁言"="Banned in the group";
 
 // WKConversationGroupSettingVC
-
+"聊天信息"="Group";
 "聊天信息(%lu)"="Group(%lu)";
 "%@在群黑名单中"="%@ in the group blacklist";
 "群主或管理员已启用\"群聊邀请确认\"，邀请朋友进群可向群主或群管理员描述原因。"="The group owner or administrator has enabled \"group chat invitation confirmation\". Invite friends to the group can describe the reason to the group owner or group administrator.";

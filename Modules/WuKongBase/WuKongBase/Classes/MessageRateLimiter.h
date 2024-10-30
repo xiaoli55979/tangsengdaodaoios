@@ -10,6 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MessageRateLimiter : NSObject
+// 设置每分钟允许的消息数量
+- (void)setMessageLimitPerMinute:(NSInteger)count;
 - (BOOL)canSendMessageForID:(id)identifier;
 @end
 
