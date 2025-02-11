@@ -16,7 +16,7 @@
 #import "SELUpdateAlert.h"
 
 
-#define SERVER_IP @"mchat-api.thforward.com/api"
+#define SERVER_IP @"api.easy-im.com/api"
 #define HTTPS_ON true // https开关
 
 

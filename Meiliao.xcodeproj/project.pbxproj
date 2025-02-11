@@ -664,10 +664,10 @@
 					"-framework",
 					"\"WuKongIMSDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bigo.cn.devdd;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meiliao.cn.devdd;
 				PRODUCT_NAME = TangSengDaoDao;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = jtpayAll_N;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = jtpayAll_New;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -779,7 +779,7 @@
 					"-framework",
 					"\"WuKongIMSDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bigo.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meiliao.cn;
 				PRODUCT_NAME = TangSengDaoDao;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = jtpayDesAll;
