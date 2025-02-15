@@ -36,11 +36,12 @@
     
     // 显示添加联系人界面
    [[WKApp shared] setMethod:WKPOINT_CONVERSATION_ADDCONTACTS handler:^id _Nullable(id  _Nonnull param) {
-       NSString *role =  [WKApp shared].loginInfo.extra[@"role"];
-       if ([role isEqualToString:@"admin"]) {
-           WKContactsAddVC *vc = [WKContactsAddVC new];
-           [[WKNavigationManager shared] pushViewController:vc animated:YES];
-       }
+//       NSString *role =  [WKApp shared].loginInfo.extra[@"role"];
+//       if ([role isEqualToString:@"admin"]) {
+//       }
+       
+        WKContactsAddVC *vc = [WKContactsAddVC new];
+        [[WKNavigationManager shared] pushViewController:vc animated:YES];
        return nil;
    }];
 

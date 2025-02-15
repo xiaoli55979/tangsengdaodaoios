@@ -245,7 +245,6 @@
             showChannelName = [NSString stringWithFormat:@"%@...",showChannelName];
         }
         [self.conversationView.input.textView internalTextView].placeholder=[NSString stringWithFormat:LLang(@"发送给 %@"),showChannelName];
-       
     }
 }
 

@@ -110,8 +110,8 @@
         [[WKNavigationManager shared].topViewController.view showHUDWithHide:LLang(@"登录密码不能为空！")];
         return;
     }
-    if(!self.chatPwd || [self.chatPwd isEqualToString:@""]) {
-        [[WKNavigationManager shared].topViewController.view showHUDWithHide:LLang(@"聊天密码不能为空！")];
+    if(!self.chatPwd || ![self matchesRegex:@"^[0-9]{6}$" string:self.chatPwd]) {
+        [[WKNavigationManager shared].topViewController.view showHUDWithHide:LLang(@"聊天密码只能为6位数字！")];
         return;
     }
     if(![self.chatPwd isEqualToString:self.rechatPwd]) {
@@ -139,6 +139,11 @@
     }).catch(^(NSError *error){
         [[WKNavigationManager shared].topViewController.view switchHUDError:error.domain];
     });
+}
+
+- (BOOL)matchesRegex:(NSString *)regex string:(NSString *)input {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    return [predicate evaluateWithObject:input];
 }
 
 -(NSString*) digestPwd:(NSString*)pwd {

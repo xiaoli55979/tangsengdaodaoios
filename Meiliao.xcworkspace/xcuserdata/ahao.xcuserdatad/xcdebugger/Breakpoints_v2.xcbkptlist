@@ -39,16 +39,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2A0696C4-1FD7-4251-B88C-156BC01F3FBE"
+            uuid = "0FA08486-90C2-4B1F-B0AD-E2301E6E0B3C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Modules/WuKongBase/WuKongBase/Classes/Sections/Me/Security/WKConversationPasswordVM.m"
+            filePath = "Modules/WuKongBase/WuKongBase/Classes/Sections/Conversation/Input/FuncGroup/WKPanelDefaultFuncItem.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "-setChatPwd"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "-onPressed:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

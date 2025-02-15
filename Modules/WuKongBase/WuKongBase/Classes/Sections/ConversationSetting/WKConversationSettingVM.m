@@ -198,6 +198,10 @@
 
     [[WKApp shared] setMethod:@"channelsetting.groupqrcode" handler:^id _Nullable(id  _Nonnull param) {
         WKChannel *channel = param[@"channel"];
+        /// 只有管理员和创建者可以分享二维码
+        if (![self isManagerOrCreatorForMe]) {
+            return nil;
+        }
         if(channel.channelType != WK_GROUP) {
             return nil;
         }

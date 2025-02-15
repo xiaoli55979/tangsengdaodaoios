@@ -1430,11 +1430,11 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
 
     // ---------- 我的  ----------
     // PC端
-    [self setMethod:WKPOINT_ME_WEB handler:^id _Nullable(id  _Nonnull param) {
-        return [WKMeItem initWithTitle:LLangW(@"网页端",weakSelf) icon:[weakSelf imageName:@"Me/Index/IconPC"] nextSectionHeight:10.0f onClick:^{
-            [[WKNavigationManager shared] pushViewController:[WKWebClientInfoVC new] animated:YES];
-        }];
-    } category:WKPOINT_CATEGORY_ME sort:18000];
+//    [self setMethod:WKPOINT_ME_WEB handler:^id _Nullable(id  _Nonnull param) {
+//        return [WKMeItem initWithTitle:LLangW(@"网页端",weakSelf) icon:[weakSelf imageName:@"Me/Index/IconPC"] nextSectionHeight:10.0f onClick:^{
+//            [[WKNavigationManager shared] pushViewController:[WKWebClientInfoVC new] animated:YES];
+//        }];
+//    } category:WKPOINT_CATEGORY_ME sort:18000];
     // 新消息通知
     [self setMethod:WKPOINT_ME_NEWMSGNOTICE handler:^id _Nullable(id  _Nonnull param) {
         return [WKMeItem initWithTitle:LLangW(@"新消息通知",weakSelf) icon:[weakSelf imageName:@"Me/Index/IconNotify"] onClick:^{
@@ -1525,24 +1525,24 @@ static  UIBackgroundTaskIdentifier _bgTaskToken;
         } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:9000];
         
         
-        [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
-            return [WKConversationAddItem title:LLangW(@"添加朋友", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/FriendAdd"] onClick:^{
-                [[WKApp shared] invoke:WKPOINT_CONVERSATION_ADDCONTACTS param:nil];
-            }];
-        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
-        
         
     } else {
         [self setMethod:WKPOINT_CONVERSATION_ADD_STARTCHAT handler:^id _Nullable(id  _Nonnull param) {
             return nil;
         } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:9000];
         
-        [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
-            return nil;
-        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
+//        [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
+//            return nil;
+//        } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
 
     }
-
+    
+    /// 添加朋友权限由后台管理
+    [self setMethod:WKPOINT_CONVERSATION_ADD_ADDFRIEND handler:^id _Nullable(id  _Nonnull param) {
+        return [WKConversationAddItem title:LLangW(@"添加朋友", weakSelf) icon:[weakSelf imageName:@"ConversationList/Popmenus/FriendAdd"] onClick:^{
+            [[WKApp shared] invoke:WKPOINT_CONVERSATION_ADDCONTACTS param:nil];
+        }];
+    } category:WKPOINT_CATEGORY_CONVERSATION_ADD sort:8000];
 }
 
 

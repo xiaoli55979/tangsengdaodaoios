@@ -236,10 +236,21 @@
     /// 获取成员信息
     WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:conversationContext.channel uid:[WKApp shared].loginInfo.uid];
     BOOL status = [channelInfo.extra[@"allow_send_member_card"] boolValue];
-    if (channelInfo.extra[@"allow_send_member_card"] != nil && !status && memberOfMy.role == WKMemberRoleCommon) {
-        [WKAlertUtil alert:LLangW(@"当前无权限",self)];
-        return ;
+
+    /// 获取用户角色
+    NSString *role = [WKApp shared].loginInfo.extra[@"role"];
+
+    /// 先判断是否允许发送名片
+    BOOL allowSendMemberCard = (channelInfo.extra[@"allow_send_member_card"] != nil && status);
+
+    /// 判断是否是普通成员且角色不是管理员
+    BOOL isRestrictedUser = (memberOfMy.role == WKMemberRoleCommon) && ![role isEqualToString:@"admin"];
+
+    if (!allowSendMemberCard || isRestrictedUser) {
+        [WKAlertUtil alert:LLangW(@"当前无权限", self)];
+        return;
     }
+
     
     [[WKApp shared] invoke:WKPOINT_CONTACTS_SELECT param:@{@"mode":@"single",@"on_finished":^(NSArray<NSString*>*uids){
         if(uids && [uids count]<=0) {
