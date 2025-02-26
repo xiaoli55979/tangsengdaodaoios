@@ -487,13 +487,14 @@ static NSMutableDictionary *flameNodeCacheDict;
     }
     /// 获取成员信息
     WKChannelMember *memberOfMy = [[WKSDK shared].channelManager getMember:model.channel uid:model.fromUid];
-    /// 头像添加成员角色名称
-    UIView *roleView = [self getRoleView:memberOfMy.role];
-    if(roleView) {
-        [self.avatarImgView addSubview:roleView];
-        roleView.lim_centerX_parent = self.avatarImgView;
-        roleView.lim_top = self.avatarImgView.lim_height - roleView.lim_height;
-    }
+    self.avatarImgView.showRole = true;
+    [self.avatarImgView setRole:memberOfMy.role];
+//    UIView *roleView = [self getRoleView:memberOfMy.role];
+//    if(roleView) {
+//        [self.avatarImgView addSubview:roleView];
+//        roleView.lim_centerX_parent = self.avatarImgView;
+//        roleView.lim_top = self.avatarImgView.lim_height - roleView.lim_height;
+//    }
     
     // 回应
     if(self.messageModel.reactions && self.messageModel.reactions.count>0) {
@@ -531,39 +532,6 @@ static NSMutableDictionary *flameNodeCacheDict;
 }
 
 
--(UIView*) getRoleView:(WKMemberRole)role {
-    
-    NSString *roleName = @"";
-    
-    
-    UIView *roleView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 15.0f)];
-    roleView.layer.masksToBounds = YES;
-    roleView.backgroundColor = WKApp.shared.config.cellBackgroundColor;
-    
-    UILabel *roleNameLbl = [[UILabel alloc] init];
-    roleNameLbl.font = [WKApp.shared.config appFontOfSize:8.0f];
-    [roleView addSubview:roleNameLbl];
-    
-    if(role == WKMemberRoleManager) {
-        roleName = LLang(@"管理员");
-        roleNameLbl.textColor = WKApp.shared.config.themeColor;
-    }else if(role == WKMemberRoleCreator) {
-        roleName = LLang(@"群主");
-        roleNameLbl.textColor = [UIColor orangeColor];
-    }else {
-        return nil;
-    }
-    roleNameLbl.text = roleName;
-    [roleNameLbl sizeToFit];
-    
-    CGFloat width = MAX(roleNameLbl.lim_width+4.0f, roleView.lim_width);
-    roleView.lim_width = width;
-    roleView.layer.cornerRadius = roleView.lim_height/2.0f;
-    
-    roleNameLbl.lim_centerX_parent = roleView;
-    roleNameLbl.lim_centerY_parent = roleView;
-    return roleView;
-}
 
 // 获取发送者名字
 +(NSString*) getFromName:(WKMessageModel*)messageModel {

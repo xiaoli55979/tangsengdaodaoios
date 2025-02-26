@@ -98,11 +98,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberUpdate:) name:WKNOTIFY_GROUP_MEMBERUPDATE object:nil];
     
-    // 管理员才能加好友
-    NSString *role =  [WKApp shared].loginInfo.extra[@"role"];
-    if ([role isEqualToString:@"user"]) {
-        self.addFriendBtn.hidden = YES;
-    }
+//    // 管理员才能加好友
+//    NSString *role =  [WKApp shared].loginInfo.extra[@"role"];
+//    if ([role isEqualToString:@"user"]) {
+//        self.addFriendBtn.hidden = YES;
+//    }
 }
 
 
